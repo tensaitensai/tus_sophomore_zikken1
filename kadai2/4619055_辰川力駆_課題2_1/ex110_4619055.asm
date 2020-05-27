@@ -1,0 +1,6 @@
+MOV AX,0xa5
+AND AX,0x0f
+OR AX,0x80;AXの値は85
+XOR AX,0x11;AXの値は94
+NOT AX
+HLT ;最終的なAXの値はFF6B

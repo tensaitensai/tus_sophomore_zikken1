@@ -1,0 +1,10 @@
+MOV AX,0x0a
+MOV BX,0x0b
+PUSH AX
+PUSH BX
+MOV AX,0x05
+MOV BX,0x0c
+MUL BX
+POP AX
+POP BX 
+HLT ;POPをするとPUSHでスタックに退避した順番と逆の順番でとりだされるから
