@@ -1,0 +1,70 @@
+     1                                  org 0x100
+     2                                  
+     3                                  ; ESレジスタをテキストVRAMに設定
+     4 00000000 B800B8                  mov ax,0xb800
+     5 00000003 8EC0                    mov es,ax
+     6 00000005 E80900                  call crearing_screen ;画面のクリア
+     7 00000008 BA0000                  mov dx, 0
+     8                                  loop: 
+     9 0000000B E81400                      call key_input ;キー入力待ち
+    10 0000000E E81A00                      call loopfunc ;"o"と"x"を表示して色を変える関数
+    11                                  
+    12                                  
+    13                                  crearing_screen:
+    14                                      ;画面のクリア
+    15 00000011 B9D007                      mov cx,2000 ;80*25
+    16                                      fill:
+    17 00000014 89CB                            mov bx,cx
+    18 00000016 83EB01                          sub bx,1 ;0~1999文字目にアクセスするため-1する
+    19 00000019 D1E3                            shl bx,1 ;2バイト毎にアクセスするため2倍にする
+    20 0000001B 26C7070000                      mov word[es:bx],0x0000 ;色:0x00,文字:0x00を書き込む 
+    21 00000020 E2F2                            loop fill ;表示エリア全て繰り返す
+    22                                  
+    23                                  key_input:
+    24                                      ;キー入力待ち
+    25 00000022 B401                        mov ah,0x01
+    26 00000024 CD21                        int 21h
+    27 00000026 3C71                        cmp al, 0x71 ;"q"が入力されたらプログラム終了
+    28 00000028 7442                        je endcode
+    29 0000002A C3                          RET
+    30                                  
+    31                                  loopfunc:
+    32                                      ;"o"と"x"を表示して色を変える関数
+    33                                  
+    34 0000002B B9A000                      mov cx, 160
+    35                                      fill_line:
+    36                                          ;指定行の色を変える
+    37 0000002E 89CB                            mov bx, cx
+    38 00000030 83EB01                          sub bx, 1
+    39 00000033 D1E3                            shl bx, 1
+    40 00000035 26C707006D                      mov word [es:bx], 0x6d00 
+    41 0000003A E2F2                            loop fill_line
+    42                                  
+    43 0000003C B95000                      mov cx, 80
+    44                                      fill_screen:
+    45                                          ;指定行以外の色を黒にする
+    46 0000003F 89CB                            mov bx, cx
+    47 00000041 83EB01                          sub bx, 1
+    48 00000044 D1E3                            shl bx, 1
+    49 00000046 26C7070000                      mov word [es:bx], 0x0000
+    50 0000004B E2F2                            loop fill_screen
+    51                                  
+    52                                      ;"o"を表示
+    53 0000004D BBA000                      mov bx, 160
+    54 00000050 01D3                        add bx, dx
+    55 00000052 26C7076F6D                  mov word [es:bx], 0x6d6f
+    56                                  
+    57                                      ;"x"を表示
+    58 00000057 BB3E01                      mov bx, 318
+    59 0000005A 29D3                        sub bx, dx
+    60 0000005C 26C707786D                  mov word [es:bx], 0x6d78
+    61                                  
+    62 00000061 83C202                      add dx, 2
+    63 00000064 83FA50                      cmp dx,80
+    64 00000067 7403                        je endcode ;衝突したら終了
+    65 00000069 E89FFF                      call loop
+    66                                  
+    67                                  endcode:
+    68                                      ;プログラム終了
+    69 0000006C B8004C                      mov ax,0x4c00
+    70 0000006F CD21                        int 0x21
