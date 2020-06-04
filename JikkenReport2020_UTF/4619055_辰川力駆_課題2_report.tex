@@ -1,0 +1,232 @@
+\documentclass[12pt]{jarticle}
+\usepackage{TUSIreport}
+\usepackage{otf}
+\usepackage{listings,jlisting}
+\usepackage{color}
+\usepackage{fancybox,ascmac}
+\lstset{
+language=[x86masm]Assembler,
+backgroundcolor={\color[gray]{.85}},
+basicstyle={\small},
+identifierstyle={\small},
+commentstyle={\small\ttfamily \color[rgb]{0,0.5,0}},
+keywordstyle={\small\bfseries \color[rgb]{1,0,0}},
+ndkeywordstyle={\small},
+stringstyle={\small\ttfamily \color[rgb]{0,0,1}},
+frame={tb},
+breaklines=true,
+columns=[l]{fullflexible},
+numbers=left,
+xrightmargin=0zw,
+xleftmargin=3zw,
+numberstyle={\scriptsize},
+stepnumber=1,
+numbersep=1zw,
+morecomment=[l]{//}
+}
+%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 表紙を出力する場合は，\提出者と\共同実験者をいれる
+% \提出者{科目名}{課題名}{提出年}{提出月}{提出日}{学籍番号}{氏名}
+% \共同実験者{一人目}{二人目}{..}{..}{..}{..}{..}{八人目}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\提出者{情報工学実験1}{課題2 アセンブリ言語}
+{2020}{6}{1}{4619055}{辰川力駆}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\共同実験者{}{}{}{}{}{}{}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 表紙を出力する場合はコメントアウトしない
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\表紙出力
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 以下はレポート本体，reportmain.tex に書いてある．
+% \inputを使っているが，直接書いても良い．
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{実験の要旨}
+背景
+
+
+\section{実験の目的}
+目的
+\section{実験の原理(理論)}
+
+\section{実験環境}
+\begin{itemize}
+	\item MacBook Pro(16-inch,2019)
+	      \begin{itemize}
+		      \item ProductName: Mac OS X
+		      \item ProductVersion:	10.15.5
+		      \item BuildVersion: 19F101
+		      \item プロセッサ: 2.6 GHz 6コアIntel Core i7
+		      \item メモリ: 16 GB 2667 MHz DDR4
+	      \end{itemize}
+	\item NASM version: 2.14.02
+	\item DOSBox version: 0.74-3
+\end{itemize}
+
+\clearpage
+
+\section{結果・考察}
+\subsection{レポート課題1}
+\begin{itembox}[l]{レポート課題1}
+	本課題では ``シミュレータ" と ``エミュレータ" を用いて実験を行った。
+	``シミュレータ" と ``エミュレータ" とは何かについて調査し、レポートにまとめよ。
+	その際に ``シミュレータ" と ``エミュレータ" の違いを具体例を引用しながら説明せよ。
+\end{itembox}
+
+\subsection{レポート課題2}
+
+\begin{lstlisting}[caption=sum\_4619055.asm,label=sum]
+	MOV AX,0
+	MOV CX,10
+	label:
+		ADD AX,CX
+		LOOP label
+	HLT
+\end{lstlisting}
+
+
+\subsection{レポート課題3}
+
+\begin{lstlisting}[caption=nbits\_4619055.asm,label=nbits]
+	MOV AX,80 ;学籍番号は4619055なので55+25=80です。
+	loop:
+		MOV BX,AX
+		AND BX,1 ;2進数表記で1の位が1ならばBXを1に、0ならばBXを0にします
+		ADD DX,BX
+		SHR AX,1
+		CMP AX,0
+		JE loopend
+		CALL loop
+	loopend: 
+		HLT
+\end{lstlisting}
+
+
+\subsection{レポート課題4}
+
+\begin{lstlisting}[caption=rps2\_4619055.asm,label=rps2]
+	org	0x100
+	mov bx,0 ;アドレステーブル参照のオフセットを示す変数
+	
+	call firstmsg ;最初のメッセージを表示
+	call inputfunc ;文字列入力
+	call rsltuser ;userの結果を表示
+	call keywait ;キー入力が入るとCPUのじゃんけんがきまる
+	call rsltcpu ;CPUの結果を表示
+	
+	;プログラムの終了
+	mov ax,0x4c00
+	int 0x21
+	
+	keywait:
+		add bx,2
+		cmp bx,4
+		jle skip
+		mov bx,0
+	skip:
+		;キーボードの状態のチェック
+		mov ah,0x06
+		mov dl,0xff
+		int 0x21
+		jz keywait ;キー入力がなければkeywaitへ戻る
+		RET
+		
+	firstmsg:
+		;最初のメッセージを表示
+		mov ah,0x09
+		mov dx,msg 
+		int 0x21
+		RET
+	
+	rsltuser:
+		;userの結果を表示
+		add bx,ax
+		add bx,ax
+		and bx,0x0f
+		mov ah,0x09
+		mov dx,usrmsg 
+		int 0x21
+		mov dx,[handsign+bx]
+		int 0x21
+		mov bx,0
+		RET
+	
+	rsltcpu:
+		;CPUの結果を表示
+		mov ah,0x09
+		mov dx,cpumsg 
+		int 0x21
+		mov dx,[handsign+bx]
+		int 0x21
+		RET
+		
+	inputfunc:
+		;文字列入力
+		mov ah,0x09
+		mov dx,input ;inputメッセージを表示
+		int 0x21
+		mov ah,0x01 ;文字列入力
+		int 0x21
+		mov ah,0x09
+		mov dx,crlf ;改行を表示
+		int 0x21
+		RET
+	
+	msg db 'Please Input Handsign (Rock->0, Paper->1, Scissors->2)',0x0d,0x0a,'$'
+	input db 'INPUT:',0x0d,0x0a,'$'
+	usrmsg db 'User: ','$'
+	cpumsg db 'CPU: ','$'
+	
+	handsign dw rock,paper,scissors ;アドレステーブル（ポインタが入った配列）
+	rock db 'Rock',0x0d,0x0a,'$'
+	paper db 'Paper',0x0d,0x0a,'$'
+	scissors db 'Scissors',0x0d,0x0a,'$'
+	crlf db 0x0d,0x0a,'$'
+\end{lstlisting}
+
+
+\subsection{レポート課題5}
+
+\begin{lstlisting}[caption=fib\_4619055.asm,label=fib]
+	;; フィボナッチ数列を求める
+	org 0x100
+	 
+	;; 1つめのフィボナッチ数を計算 (5)
+	mov ah, 2
+	mov al, 3
+	add ah, al
+	loop:   ;2つめ~9つめのフィボナッチ数を計算
+		cmp al,128 ;２つ前の数が128を超えたとき終了する
+		jae end
+		mov bl, ah
+		mov ah, al
+		mov al, bl
+		add ah, al
+		call loop
+	 
+	end:
+		mov dh, 0
+		mov dl, ah          ; 結果をDLレジスタに保存
+		;; プログラム終了
+		mov ah, 0x4c
+		int 0x21
+\end{lstlisting}
+
+
+\section{結論}
+
+
+
+% 参考文献
+\begin{thebibliography}{99}
+	\label{sannkoubunnkenn_chapter}
+	\bibitem[1]{rikadai}東京理科大学工学部情報工学科 情報工学実験1 2020年度
+	東京理科大学工学部情報工学科出版
+\end{thebibliography}
+
+\clearpage
+\appendix
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
