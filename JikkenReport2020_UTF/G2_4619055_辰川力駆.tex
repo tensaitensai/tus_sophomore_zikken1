@@ -1,0 +1,431 @@
+%4619055 課題3 論理回路
+\documentclass[12pt]{jarticle}
+\usepackage{TUSIreport}
+\usepackage{otf}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{hhline}
+\usepackage{url}
+%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 表紙を出力する場合は，\提出者と\共同実験者をいれる
+% \提出者{科目名}{課題名}{提出年}{提出月}{提出日}{学籍番号}{氏名}
+% \共同実験者{一人目}{二人目}{..}{..}{..}{..}{..}{八人目}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\提出者{情報工学実験1}{課題3 論理回路}
+{2020}{6}{15}{4619055}{辰川力駆}
+
+\共同実験者{}{}{}{}{}{}{}{}
+
+\表紙出力
+
+\section{実験の要旨}
+背景
+
+\section{実験の目的}
+ディジタル回路の設計・解析に必要な基本となるゲート素子(AND、OR、NOT、NAND、NOR、EX-OR)
+の基礎的動作原理を理解し、その応用について考察する。
+
+\section{実験概要}
+本実験は論理回路実習装置ITF-02を用いて行う。
+この装置の使用に当たっては次の注意を守る。
+\begin{itemize}
+    \item パネル面での結線は必ず電源スイッチをオフにしておく。
+    \item リードチップの抜き差しはプラグの部分を持って行う。リード線を持って抜き差しすると断線の原因になる。
+    \item パネル面での結線を行う場合には、リードチップがからまないようにその結線に合ったリードチップを使用する。
+\end{itemize}
+実験は以下に示す順序で行うこと。
+\begin{itemize}
+    \item[(1)] 論理積(AND)回路
+    \item[(2)] 論理和(OR)回路
+    \item[(3)] 否定(NOT)回路
+    \item[(4)] 論理積の否定(NAND)回路
+    \item[(5)] 論理和の否定(NOR)回路
+    \item[(6)] ド・モルガンの定理の証明
+    \item[(7)] 排他的論理和(EX-OR)回路
+    \item[(8)] 加算器(ADDER)の実習
+    \item[(9)] デコーダの実習
+    \item[(10)] R-Sフリップ・フロップ
+    \item[(11)] J-Kフリップ・フロップ
+\end{itemize}
+\clearpage
+
+\section{実験}
+\subsection{操作手順}
+
+本器ITF-02の基本的な操作手順は、次の通りとする。
+\begin{itemize}
+    \item[1.] 電源スイッチをOFFにする。
+    \item[2.] 各実習項目における結線を行う。
+    \item[3.] 電源スイッチをONにする。
+    \item[4.] 各実習項目における実習を行う。
+    \item[5.] 実習が終了したら電源スイッチをOFFにして、結線を解く。
+\end{itemize}
+
+＜注意＞
+
+結線を行ったり、結線を解いたりするときは、原則として電源スイッチをOFFにしておくこと。
+ただし、実習を行っている途中で結線を変えたり、結線を増やしたりするときは、
+その都度電源スイッチをOFFにする必要はない。
+その場合には、出力信号をアースに短絡したり、出力端子と出力端子を接続したりしないよう注意すること。
+結線を途中で変えるときは、信号出力端子に差し込んであるリードチップを抜き、
+次に信号入力端子に差し込んであるリードチップを抜く。
+また、結線を追加するときは、リードチップを信号入力端子に差し込み、次に信号出力端子に差し込む。
+
+\subsection{組み合わせ回路の実習}
+組み合わせ回路は、出力が入力だけに関係する論理回路で、基本になる素子として、
+論理積(AND)、論理和(OR)、否定(NOT)、論理積の否定(NAND)、論理和の否定(NOR)などがあり、
+その応用として排他的論理和(Exclusive-OR)、半加算器(Half-ADDER)、
+全加算器(Full-ADDER)、エンコーダ、デコーダなどがある。
+
+\subsubsection*{(1) 論理積(AND)回路}
+\begin{itemize}
+    \item 目的
+
+          $Y=A\cdot B$ を理解する。
+
+    \item 理論
+
+          論理積は、$Y=A\cdot B$で表現され、
+          入力$A$と$B$がいずれも``1"のときのみ、
+          出力$Y$が``1"、他の条件ではすべて``0''となるもので、
+          この式を満足する論理回路をAND回路という。
+
+          \clearpage
+
+          \begin{table}[h]
+              \caption{ANDの真理値表}
+              \begin{center}
+                  \begin{tabular}{|c|c|c|}
+                      \hline
+                      A & B & Y \\
+                      \hline
+                      0 & 0 & 0 \\
+                      \hline
+                      0 & 1 & 0 \\
+                      \hline
+                      1 & 0 & 0 \\
+                      \hline
+                      1 & 1 & 1 \\
+                      \hline
+                  \end{tabular}
+              \end{center}
+              \label{table1}
+          \end{table}
+
+    \item 実習
+
+          パネル上のAND回路素子を使用し、
+          $Y=A\cdot B$の真理値表\ref{table1}を表示器で表示して
+          確認することにより行う。
+
+          $A$、$B$の入力レベルは、設定スイッチにより設定する。
+\end{itemize}
+
+\subsubsection*{(2) 論理和(OR)回路}
+\begin{itemize}
+    \item 目的
+
+          $Y = A + B$を理解する。
+
+    \item 理論
+
+          論理和は、$Y= A + B$で表現され、
+          入力$A$と$B$がいずれも``0''のときのみ、
+          出力$Y$が``0''、他の条件ではすべて``1''となるもので、
+          この式を満足する論理回路をOR回路という。
+
+          \begin{table}[h]
+              \caption{ORの真理値表}
+              \begin{center}
+                  \begin{tabular}{|c|c|c|}
+                      \hline
+                      A & B & Y \\
+                      \hline
+                      0 & 0 & 0 \\
+                      \hline
+                      0 & 1 & 1 \\
+                      \hline
+                      1 & 0 & 1 \\
+                      \hline
+                      1 & 1 & 1 \\
+                      \hline
+                  \end{tabular}
+              \end{center}
+              \label{table2}
+          \end{table}
+
+    \item 実習
+
+          パネル上のOR回路素子を使用し、
+          $Y = A + B$の真理値表\ref{table2}を表示器で表示して
+          確認することにより行う。
+
+          $A$、$B$の入力レベルは、設定スイッチにより設定する。
+\end{itemize}
+
+\subsubsection*{(3) 否定(NOT)回路}
+\begin{itemize}
+    \item 目的
+
+          $Y = \overline{A}$を理解する。
+
+    \item 理論
+
+          否定回路は、インバータとも言われ、$Y = \overline{A}$で表現される。
+          入力と出力の関係は常に正反対になり、
+          この式を満足する論理回路を否定回路という。
+
+          \begin{table}[h]
+              \caption{NOTの真理値表}
+              \begin{center}
+                  \begin{tabular}{|c|c|}
+                      \hline
+                      A & Y \\
+                      \hline
+                      0 & 1 \\
+                      \hline
+                      1 & 0 \\
+                      \hline
+                  \end{tabular}
+              \end{center}
+              \label{table3}
+          \end{table}
+
+    \item 実習
+
+          パネル上のNOT回路素子を使用し、
+          入力Aに対し出力$Y = \overline{A}$の真理値表\ref{table3}を表示器で表示して
+          確認することにより行う。
+
+          $A$、$B$の入力レベルは、設定スイッチにより設定する。
+\end{itemize}
+
+\subsubsection*{(4) 論理積の否定(NAND)回路}
+\begin{itemize}
+    \item 目的
+
+          $Y = \overline{A \cdot B}$ を理解する。
+
+    \item 理論
+
+          論理積の否定は、$Y = \overline{A \cdot B}$で表現され、
+          入力$A$と$B$がいずれも``1''のときのみ、出力$Y$が ``0''、
+          他の条件ではすべて``1''となるもので、
+          この式を満足する論理回路をNAND回路という。
+
+          \begin{table}[h]
+              \caption{NANDの真理値表}
+              \begin{center}
+                  \begin{tabular}{|c|c|c|}
+                      \hline
+                      A & B & Y \\
+                      \hline
+                      0 & 0 & 1 \\
+                      \hline
+                      0 & 1 & 1 \\
+                      \hline
+                      1 & 0 & 1 \\
+                      \hline
+                      1 & 1 & 0 \\
+                      \hline
+                  \end{tabular}
+              \end{center}
+              \label{table4}
+          \end{table}
+
+    \item 実習
+
+          パネル上のNAND回路素子を使用し、
+          $Y = \overline{A \cdot B}$の
+          真理値表\ref{table4}を表示器で表示して
+          確認することにより行う。
+
+          $A$、$B$の入力レベルは、設定スイッチにより設定する。
+\end{itemize}
+
+\clearpage
+
+\subsubsection*{(5) 論理和の否定(NOR)回路}
+\begin{itemize}
+    \item 目的
+
+          $Y = \overline{A + B}$を理解する。
+    \item 理論
+
+          論理和の否定は、$Y = \overline{A + B}$で表現され、
+          入力$A$と$B$がいずれも``0''のときのみ、
+          出力$Y$が``1''、他の条件ではすべて``0''となるもので、
+          この式を満足する論理回路をNOR回路という。
+
+          \begin{table}[h]
+              \caption{NORの真理値表}
+              \begin{center}
+                  \begin{tabular}{|c|c|c|}
+                      \hline
+                      A & B & Y \\
+                      \hline
+                      0 & 0 & 1 \\
+                      \hline
+                      0 & 1 & 0 \\
+                      \hline
+                      1 & 0 & 0 \\
+                      \hline
+                      1 & 1 & 0 \\
+                      \hline
+                  \end{tabular}
+              \end{center}
+              \label{table5}
+          \end{table}
+    \item 実習
+
+          パネル上のNOR回路素子を使用し、
+          $Y = \overline{A + B}$の
+          真理値表\ref{table5}を表示器で表示して
+          確認することにより行う。
+
+          $A$、$B$の入力レベルは、設定スイッチにより設定する。
+\end{itemize}
+
+\subsubsection*{(6) ド・モルガンの定理の証明}
+\begin{itemize}
+    \item 目的
+
+          ド・モルガンの定理証明として、
+
+          $ \overline{A \cdot B} = \overline{A} + \overline{B} $
+
+          $\overline{A + B} = \overline{A} \cdot \overline{B}$
+
+          の式に、実際の値を入れて行う。
+
+    \item 理論
+
+          ド・モルガンの定理は、式(\ref{eq1})、 および式(\ref{eq2})で表示される。
+          \begin{eqnarray}
+              \overline{A \cdot B} = \overline{A} + \overline{B} \label{eq1} \\
+              \overline{A + B} = \overline{A} \cdot \overline{B} \label{eq2}
+          \end{eqnarray}
+          式(\ref{eq1})、および式(\ref{eq2})の証明の際し、
+          上記を書き直すと、式(\ref{eq3})、および式(\ref{eq4})になる。
+          \begin{align}
+              Y_1 & = \overline{A \cdot B} & Y_2 & = \overline{A} + \overline{B}     & Y_1 & = Y_2 \label{eq3} \\
+              Y_3 & = \overline{A + B}     & Y_4 & = \overline{A} \cdot \overline{B} & Y_3 & = Y_4 \label{eq4}
+          \end{align}
+
+          \clearpage
+
+          \begin{table}[h]
+              \caption{$Y_1= \overline{A \cdot B}、Y_2 = \overline{A} + \overline{B}$の真理値表}
+              \begin{center}
+                  \begin{tabular}{|c|c|c|c|}
+                      \hline
+                      $A$ & $B$ & $Y_1$ & $Y_2$ \\
+                      \hline
+                      0   & 0   & 1     & 1     \\
+                      \hline
+                      0   & 1   & 1     & 1     \\
+                      \hline
+                      1   & 0   & 1     & 1     \\
+                      \hline
+                      1   & 1   & 0     & 0     \\
+                      \hline
+                  \end{tabular}
+              \end{center}
+              \label{table6}
+          \end{table}
+
+          \begin{table}[h]
+              \caption{$Y_3= \overline{A + B}、Y_4 = \overline{A} \cdot \overline{B}$の真理値表}
+              \begin{center}
+                  \begin{tabular}{|c|c|c|c|}
+                      \hline
+                      $A$ & $B$ & $Y_3$ & $Y_4$ \\
+                      \hline
+                      0   & 0   & 1     & 1     \\
+                      \hline
+                      0   & 1   & 0     & 0     \\
+                      \hline
+                      1   & 0   & 0     & 0     \\
+                      \hline
+                      1   & 1   & 0     & 0     \\
+                      \hline
+                  \end{tabular}
+              \end{center}
+              \label{table7}
+          \end{table}
+
+    \item 実習
+
+          論理回路をパネル状で構成し、
+          それぞれの真理値表\ref{table6}、\ref{table7}を表示器で表示して確認し、
+          $Y_1 = Y_2$、$Y_3 = Y_4$であれば証明が成立したという方法で行う。
+\end{itemize}
+
+\subsubsection*{(7) 排他的論理和(Exclusive-OR)回路の実習}
+\begin{itemize}
+    \item 目的
+
+          $Y = \overline{A} \cdot B + A \cdot \overline{B} = A \oplus B$を理解する。
+
+    \item 理論
+
+          排他的論理和は、
+          $Y = \overline{A} \cdot B + A \cdot \overline{B} = A \oplus B$で表現され、
+          入力$A$、$B$が同じレベルのとき、
+          出力$Y$が``0''、異なるレベルのときは``1''となるもので、
+          この式を満足する論理回路をExcluive-OR回路という。
+
+          \begin{table}[h]
+              \caption{$Y = \overline{A} \cdot B + A \cdot \overline{B} = A \oplus B$ の真理値表}
+              \label{tbl8}
+              \begin{center}
+                  \begin{tabular}{|c|c||c|c|c|}
+                      \hline
+                      $A$ & $B$ & $\overline{A} \cdot B$ & $A \cdot \overline{B}$ & Y \\
+                      \hhline{|=|=#=|=|=|}
+                      0   & 0   & 0                      & 0                      & 0 \\
+                      \hline
+                      0   & 1   & 1                      & 0                      & 1 \\
+                      \hline
+                      1   & 0   & 0                      & 1                      & 1 \\
+                      \hline
+                      1   & 1   & 0                      & 0                      & 0 \\
+                      \hline
+                  \end{tabular}
+              \end{center}
+          \end{table}
+
+    \item 実習
+
+          論理回路をパネル状で構成し、
+          それぞれの真理値表\ref{table8}を表示器で表示して
+          確認することにより行う。
+
+          $A$、$B$の入力レベルは、設定スイッチにより設定する。
+\end{itemize}
+
+\section{結果}
+
+\section{検討・考察}
+
+\section{結論}
+
+
+
+% 参考文献
+\begin{thebibliography}{99}
+    \label{sannkoubunnkenn_chapter}
+    \bibitem{collins}
+    J. J. Collins et al.,
+    {\em PRE}, {\bf 52}(4):R3321, 1995.
+    \bibitem{izh} E. M. Izhikevich,
+    {\em IEEE Trans. NN}, {\bf 14}(6):1569, 2003.
+\end{thebibliography}
+
+\clearpage
+\appendix
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
