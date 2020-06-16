@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.14159265-p3.8.3-191112-2.6 (utf8.euc) (TeX Live 2020) (preloaded format=platex 2020.6.3)  15 JUN 2020 17:51
+This is e-pTeX, Version 3.14159265-p3.8.3-191112-2.6 (utf8.euc) (TeX Live 2020) (preloaded format=platex 2020.6.3)  16 JUN 2020 14:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -357,13 +357,6 @@ LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
 LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
 (Font)              using `JY1/hmc/bx/n' instead on input line 366.
 
-
-LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
-(Font)              using `JY1/hmc/bx/n' instead on input line 403.
-
-
-LaTeX Warning: Reference `table8' on page 6 undefined on input line 403.
-
 [6
 
 ]
@@ -371,39 +364,74 @@ LaTeX Warning: Reference `table8' on page 6 undefined on input line 403.
 LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
 (Font)              using `JY1/hmc/bx/n' instead on input line 409.
 
+[7]
 
 LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
-(Font)              using `JY1/hmc/bx/n' instead on input line 411.
+(Font)              using `JY1/hmc/bx/n' instead on input line 515.
+
+[8
+
+] [9
+
+]
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 578.
 
 
 LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
-(Font)              using `JY1/hmc/bx/n' instead on input line 413.
+(Font)              using `JY1/hmc/bx/n' instead on input line 585.
+
+[10
+
+]
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 651.
+
+
+Overfull \hbox (15.91663pt too wide) in paragraph at lines 698--730
+ [][][] 
+ []
+
+[11
+
+]
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 746.
 
 
 LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
-(Font)              using `JY1/hmc/bx/n' instead on input line 418.
+(Font)              using `JY1/hmc/bx/n' instead on input line 748.
+
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 753.
 
 
 LaTeX Font Warning: Font shape `JT1/hgt/m/it' undefined
-(Font)              using `JT1/hgt/m/n' instead on input line 422.
+(Font)              using `JT1/hgt/m/n' instead on input line 757.
 
 
 LaTeX Font Warning: Font shape `JY1/hgt/m/it' undefined
-(Font)              using `JY1/hgt/m/n' instead on input line 422.
+(Font)              using `JY1/hgt/m/n' instead on input line 757.
 
 
 LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
-(Font)              using `JY1/hmc/bx/n' instead on input line 422.
+(Font)              using `JY1/hmc/bx/n' instead on input line 757.
 
 LaTeX Font Info:    Font shape `JT1/hgt/m/it' will be
-(Font)              scaled to size 11.54663pt on input line 424.
+(Font)              scaled to size 11.54663pt on input line 759.
 LaTeX Font Info:    Font shape `JY1/hgt/m/it' will be
-(Font)              scaled to size 11.54663pt on input line 424.
+(Font)              scaled to size 11.54663pt on input line 759.
 
 LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
-(Font)              using `JY1/hmc/bx/n' instead on input line 424.
+(Font)              using `JY1/hmc/bx/n' instead on input line 759.
 
-[7] (./G2_4619055_莨医�^^9d�^^8a^^9b薈^^86.aux)
+[12
+
+] (./G2_4619055_莨医�^^9d�^^8a^^9b薈^^86.aux)
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 7.12pt have occurred.
@@ -411,17 +439,14 @@ LaTeX Font Warning: Size substitutions with differences
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-
-LaTeX Warning: There were undefined references.
-
  ) 
 Here is how much of TeX's memory you used:
- 3330 strings out of 481140
- 42214 string characters out of 5917418
- 297082 words of memory out of 5000000
- 19378 multiletter control sequences out of 15000+600000
+ 3341 strings out of 481140
+ 42289 string characters out of 5917418
+ 305191 words of memory out of 5000000
+ 19389 multiletter control sequences out of 15000+600000
  546553 words of font info for 90 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
- 30i,9n,25p,395b,992s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 30i,19n,25p,395b,992s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on G2_4619055_辰川力駆.dvi (8 pages, 22356 bytes).
+Output written on G2_4619055_辰川力駆.dvi (13 pages, 42456 bytes).

@@ -358,12 +358,12 @@
 
     \item 実習
 
-          論理回路をパネル状で構成し、
+          論理回路をパネル上で構成し、
           それぞれの真理値表\ref{table6}、\ref{table7}を表示器で表示して確認し、
           $Y_1 = Y_2$、$Y_3 = Y_4$であれば証明が成立したという方法で行う。
 \end{itemize}
 
-\subsubsection*{(7) 排他的論理和(Exclusive-OR)回路の実習}
+\subsubsection*{(7) 排他的論理和(Exclusive-OR)回路}
 \begin{itemize}
     \item 目的
 
@@ -373,40 +373,375 @@
 
           排他的論理和は、
           $Y = \overline{A} \cdot B + A \cdot \overline{B} = A \oplus B$で表現され、
-          入力$A$、$B$が同じレベルのとき、
+          入力$A$と$B$が同じレベルのとき、
           出力$Y$が``0''、異なるレベルのときは``1''となるもので、
-          この式を満足する論理回路をExcluive-OR回路という。
+          この式を満足する論理回路をExclusive-OR回路という。
 
           \begin{table}[h]
               \caption{$Y = \overline{A} \cdot B + A \cdot \overline{B} = A \oplus B$ の真理値表}
-              \label{tbl8}
               \begin{center}
-                  \begin{tabular}{|c|c||c|c|c|}
+                  \begin{tabular}{|c|c|c|c|c|}
                       \hline
-                      $A$ & $B$ & $\overline{A} \cdot B$ & $A \cdot \overline{B}$ & Y \\
-                      \hhline{|=|=#=|=|=|}
-                      0   & 0   & 0                      & 0                      & 0 \\
+                      $A$ & $B$ & Y \\
                       \hline
-                      0   & 1   & 1                      & 0                      & 1 \\
+                      0   & 0   & 0 \\
                       \hline
-                      1   & 0   & 0                      & 1                      & 1 \\
+                      0   & 1   & 1 \\
                       \hline
-                      1   & 1   & 0                      & 0                      & 0 \\
+                      1   & 0   & 1 \\
+                      \hline
+                      1   & 1   & 0 \\
                       \hline
                   \end{tabular}
               \end{center}
+              \label{table8}
           \end{table}
 
     \item 実習
 
-          論理回路をパネル状で構成し、
-          それぞれの真理値表\ref{table8}を表示器で表示して
+          論理回路をパネル上で構成し、
+          真理値表\ref{table8}を表示器で表示して
           確認することにより行う。
 
           $A$、$B$の入力レベルは、設定スイッチにより設定する。
 \end{itemize}
 
-\section{結果}
+\subsubsection*{(8) 加算器(ADDER)}
+\begin{itemize}
+    \item 目的
+
+          \begin{enumerate}
+              \item 加算器の$S$の部分が排他的論理和(Exclusive-OR)であることを理解する。
+              \item 半加算器の動作を理解する。
+          \end{enumerate}
+
+    \item 理論
+
+          加算器には、下位からの桁上げを考慮しない半加算器(Half-ADDER)と、
+          下位からの桁上げを考慮する全加算器(Full-ADDER)とがある。
+          全加算器は、半加算器を2個、OR回路を1個直列に接続した形になる。
+
+          半加算器の論理式は、次の式で与えられる。
+          \begin{eqnarray}
+              S &=& \overline{A} \cdot B + A \cdot \overline{B} \label{eq5} \\
+              C &=& A \cdot B \label{eq6}
+          \end{eqnarray}
+          または、
+          \begin{eqnarray}
+              S = A \oplus B \label{eq7}
+          \end{eqnarray}
+          式(\ref{eq5})、式(\ref{eq7})から分かるように、
+          回路の和(Sum)を構成している部分は、Exclusive-ORになる。
+
+          全加算器の論理式は、次の式で与えられる。
+          \begin{eqnarray*}
+              S &=& \overline{A} \cdot \overline{B} \cdot C_i + \overline{A} \cdot B \cdot \overline{C_i} + A \cdot \overline{B} \cdot \overline{C_i} + A \cdot B \cdot C_i \\
+              C_O &=& \overline{A} \cdot B \cdot C_i + A \cdot \overline{B} \cdot C_i + A \cdot B \cdot \overline{C_i} + A \cdot B \cdot C_i \nonumber \\
+              &=& A \cdot B + B \cdot C_i + A \cdot C_i
+          \end{eqnarray*}
+          いま、$S_1 = \overline{A} \cdot B + A \cdot \overline{B}$とすれば、
+          \begin{equation*}
+              S = \overline{S_1} \cdot C_i + S_1 \cdot \overline{C_i}
+          \end{equation*}
+          また、$C_1 = A \cdot B$、$C_2 = S_1 \cdot C_i$とすれば、
+          \begin{eqnarray*}
+              C_O &=& C_1 + C_2  \\
+              &=& A \cdot B + S_1 \cdot C_i
+          \end{eqnarray*}
+          となり、さらに、Exclusive-ORを用いて表せば、
+          \begin{eqnarray*}
+              S &=& A \oplus B \oplus C_i \\
+              C_O &=& A \cdot B + (A \oplus B) \cdot C_i
+          \end{eqnarray*}
+          となる。
+
+          \clearpage
+
+          \begin{table}[h]
+              \caption{Half-ADDERの真理値表}
+              \begin{center}
+                  \begin{tabular}{|c|c|c|c|}
+                      \hline
+                      $A$ & $B$ & $C$ & $S$ \\
+                      \hline
+                      0   & 0   & 0   & 0   \\
+                      \hline
+                      0   & 1   & 0   & 1   \\
+                      \hline
+                      1   & 0   & 0   & 1   \\
+                      \hline
+                      1   & 1   & 1   & 0   \\
+                      \hline
+                  \end{tabular}
+              \end{center}
+              \label{table9}
+          \end{table}
+
+          \begin{table}[h]
+              \caption{Full-ADDERの真理値表}
+              \begin{center}
+                  \begin{tabular}{|c|c|c|c|c|}
+                      \hline
+                      $A$ & $B$ & $C_i$ & $C_O$ & $S$ \\
+                      \hline
+                      0   & 0   & 0     & 0     & 0   \\
+                      \hline
+                      0   & 0   & 1     & 0     & 1   \\
+                      \hline
+                      0   & 1   & 0     & 0     & 1   \\
+                      \hline
+                      0   & 1   & 1     & 1     & 0   \\
+                      \hline
+                      1   & 0   & 0     & 0     & 1   \\
+                      \hline
+                      1   & 0   & 1     & 1     & 0   \\
+                      \hline
+                      1   & 1   & 0     & 1     & 0   \\
+                      \hline
+                      1   & 1   & 1     & 1     & 1   \\
+                      \hline
+                  \end{tabular}
+              \end{center}
+              \label{table10}
+          \end{table}
+
+    \item 実習
+
+          論理回路をパネル上で構成し、
+          真理値表\ref{table9}、\ref{table10}を表示器で表示して
+          確認することにより行う。
+\end{itemize}
+
+\subsubsection*{(9) デコーダ(DECODER)}
+\begin{itemize}
+    \item 目的
+
+          2進数を10進数に変換する動作を理解する。
+
+    \item 理論
+
+          4ビットの2進数コードを、
+          もとの10進数に戻すようなコード翻訳動作をする論理回路を、
+          デコーダといい、2進数と10進数の関係式は、次のようになる。
+
+          \clearpage
+
+          \begin{center}
+              2進数コード　$A = 2^0$ビット、$B = 2^1$ビット \\
+              $\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;$ $C = 2^2$ビット，$D = 2^3$ビット　\\
+              10進数　 $\;\;\;\;\;\;\;$ ``0'' $\sim$ ``9'' として $\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;$ \\
+              $\;\;\:$ ``0'' $= \overline{A} \cdot \overline{B} \cdot \overline{C} \cdot \overline{D}$\\
+              $\;\;\:$ ``1'' $= A \cdot \overline{B} \cdot \overline{C} \cdot \overline{D}$ \\
+              $\;\;\:$ ``2'' $= \overline{A} \cdot B \cdot \overline{C} \cdot \overline{D}$ \\
+              $\;\;\:$ ``3'' $= A \cdot B \cdot \overline{C} \cdot \overline{D}$ \\
+              $\;\;\:$ ``4'' $= \overline{A} \cdot \overline{B} \cdot C \cdot \overline{D}$ \\
+              $\;\;\:$ ``5'' $= A \cdot \overline{B} \cdot C \cdot \overline{D}$ \\
+              $\;\;\:$ ``6'' $= \overline{A} \cdot B \cdot C \cdot \overline{D}$ \\
+              $\;\:\;$ ``7'' $= A \cdot B \cdot C \cdot \overline{D}$ \\
+              $\;\:\;$ ``8'' $= \overline{A} \cdot \overline{B} \cdot \overline{C} \cdot D$ \\
+              $\;\:\;$ ``9'' $= A \cdot \overline{B} \cdot \overline{C} \cdot D$
+          \end{center}
+          この式を満足する真理値表を表\ref{table11}に示す。
+
+          \begin{table}[h]
+              \caption{デコーダ(2進-10進)の真理値表}
+              \begin{center}
+                  \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+                      \hline
+                        & \multicolumn{4}{|c|}{2進数} & \multicolumn{10}{|c|}{10進数}                                                                                             \\ \hline
+                        & $D$                         & $C$                           & $B$ & $A$ & ``0'' & ``1'' & ``2'' & ``3'' & ``4'' & ``5'' & ``6'' & ``7'' & ``8'' & ``9'' \\
+                      \hline
+                      0 & 0                           & 0                             & 0   & 0   & 1     & 0     & 0     & 0     & 0     & 0     & 0     & 0     & 0     & 0     \\ \hline
+                      1 & 0                           & 0                             & 0   & 1   & 0     & 1     & 0     & 0     & 0     & 0     & 0     & 0     & 0     & 0     \\ \hline
+                      2 & 0                           & 0                             & 1   & 0   & 0     & 0     & 1     & 0     & 0     & 0     & 0     & 0     & 0     & 0     \\ \hline
+                      3 & 0                           & 0                             & 1   & 1   & 0     & 0     & 0     & 1     & 0     & 0     & 0     & 0     & 0     & 0     \\ \hline
+                      4 & 0                           & 1                             & 0   & 0   & 0     & 0     & 0     & 0     & 1     & 0     & 0     & 0     & 0     & 0     \\ \hline
+                      5 & 0                           & 1                             & 0   & 1   & 0     & 0     & 0     & 0     & 0     & 1     & 0     & 0     & 0     & 0     \\ \hline
+                      6 & 0                           & 1                             & 1   & 0   & 0     & 0     & 0     & 0     & 0     & 0     & 1     & 0     & 0     & 0     \\ \hline
+                      7 & 0                           & 1                             & 1   & 1   & 0     & 0     & 0     & 0     & 0     & 0     & 0     & 1     & 0     & 0     \\ \hline
+                      8 & 1                           & 0                             & 0   & 0   & 0     & 0     & 0     & 0     & 0     & 0     & 0     & 0     & 1     & 0     \\ \hline
+                      9 & 1                           & 0                             & 0   & 1   & 0     & 0     & 0     & 0     & 0     & 0     & 0     & 0     & 0     & 1     \\ \hline
+                  \end{tabular}
+              \end{center}
+              \label{table11}
+          \end{table}
+
+    \item 実習
+
+          パネル上のデコーダ部分を使用し、
+          真理値表\ref{table11}を表示器で表示して
+          確認することにより行う。
+\end{itemize}
+
+\clearpage
+
+\subsection{順序回路の実習}
+順序回路(Sequential Circuit)は、
+出力が入力だけでなく回路そのものの状態によって左右される論理回路で、
+R-Sフリップ・フロップ回路(R-S Flip・Flop Circuit)、
+J-Kフリップ・フロップ回路(J-K Flip・Flop Circuit)、
+シフトレジスタ(Shift Register)などがあり、
+その応用として$n$進カウンタや、$n$ビットのシフトレジスタがある。
+\subsubsection*{(10) R-Sフリップ・フロップ回路}
+\begin{itemize}
+    \item 目的
+
+          \begin{enumerate}
+              \item R-Sフリップ・フロップが１ビットの記憶素子であることを理解する。
+              \item R-Sフリップ・フロップにおいて禁止とされる入力が存在することを理解する。
+          \end{enumerate}
+    \item 理論
+
+          R-Sフリップ・フロップ回路は、
+          ``0''、または``1''の論理レベルを記録する機能を持った回路である。
+          論理式、シンボル、真理値表は各々式(\ref{eq8})、式(\ref{eq9})、
+          表\ref{table12}で表される。
+          \begin{eqnarray}
+              Q^{(n+1)} &=& \overline{\overline{S^{(n)}} \cdot {\overline{Q}}^{(n)}} \label{eq8} \\
+              {\overline{Q}}^{(n+1)} &=& \overline{\overline{R^{(n)}} \cdot Q^{(n)}} \label{eq9}
+          \end{eqnarray}
+
+          ただし時刻$n$に関して、$S^{(n)}$、$R^{(n)}$、
+          および$Q^{(n)}$、${\overline{Q}}^{(n)}$は
+          入力$S$、$R$と出力$Q$、$\overline{Q}$を表すものとする。
+
+          動作は、$Q$と$\overline{Q}$が相補の関係
+          ($Q$と$\overline{Q}$が互いに異なる値を持つ)にあるとき、
+          $R$と$S$が``0''レベルの時、出力はもとの状態を保持し、
+          $S$が``1''、$R$が``0''なら出力$Q$は``1''、
+          $S$が``0''、$R$が``1''なら出力$Q$は``0''にそれぞれ落ち着く。
+          しかしながら$S$と$R$が共に``1''の場合は$Q$と$\overline{Q}$が共に``1''となり、
+          相補の関係が満たされなくなる。
+          この状態において、$R$と$S$を同時に``0''レベルにすると、
+          $Q$と$\overline{Q}$が``0''と``1''のレベルを交互に繰り返すこととなる。
+          (ただし、実際には各NAND素子の応答速度の差異や配線の長さによって、
+          $Q$と$\overline{Q}$が相補になるように落ち着く。)
+          このため、R-Sフリップ・フロップ回路では、$S$と$R$を共に``1''として入力することを
+          ``禁止''としている場合が多い。
+
+          \begin{table}[h]
+              \caption{R-Sフリップ・フロップの真理値表}
+              \begin{center}
+                  \begin{tabular}{|c|c|c|c||c|}
+                      \hline
+                      $S^{(n)}$ & $R^{(n)}$ & $Q^{(n+1)}$ & ${\overline{Q}}^{(n+1)}$ &      \\
+                      \hline
+                      0         & 0         & $Q^{(n)}$   & ${\overline{Q}}^{(n)}$   &      \\
+                      \hline
+                      0         & 1         & 0           & 1                        &      \\
+                      \hline
+                      1         & 0         & 1           & 0                        &      \\
+                      \hline
+                      1         & 1         & 1           & 1                        & 禁止 \\
+                      \hline
+                  \end{tabular}
+              \end{center}
+              \label{table12}
+          \end{table}
+
+    \item 実習
+
+          パネル上のR-Sフリップ・フロップの素子を使用し、
+          $S$、$R$の入力レベルに対する出力レベル$Q$、$\overline{Q}$の
+          レベルを表示器で確認することにより行う。
+\end{itemize}
+
+\clearpage
+
+\subsubsection*{(11) J-Kフリップ・フロップ回路}
+\begin{itemize}
+    \item 目的
+
+          \begin{enumerate}
+              \item J-Kフリップ・フロップがトリガ型フリップ・フロップ回路であることを理解する。
+              \item J、Kをともに``1''としたときには、Tフリップ・フロップにもなることを理解する。
+          \end{enumerate}
+    \item 理論
+
+          R-Sフリップ・フロップ回路は、
+          $R$、$S$のレベルが直接出力を決定するのに対して、
+          J-Kフリップ・フロップ回路は、$J$と$K$のレベルの他に、
+          トリガが加えられないと出力が決定されない、
+          トリガ型のフリップ・フロップ回路の一種である。
+
+          論理式、真理値表は、各々式(\ref{eq10})、
+          (\ref{eq11})、表\ref{table13}で表される。
+          \begin{eqnarray}
+              Q^{(n+1)} &=& \overline{K^{(n)}} \cdot Q^{(n)} + J^{(n)} \cdot {\overline{Q}}^{(n)} \label{eq10} \\
+              {\overline{Q}}^{(n+1)} &=& \overline{Q^{(n+1)}} \label{eq11}
+          \end{eqnarray}
+          動作は次のようになる。
+
+          \begin{enumerate}
+              \item $J$と$K$が``0''レベルのときの出力$Q$は、
+                    トリガパルス$T$が加えられても元の状態を保持する。
+              \item $J$が``1''、$K$が``0''のときの出力$Q$は、
+                    トリガパルス$T$が加えられると``1''になり、
+                    この状態でさらにトリガパルスが加えられても、
+                    元の状態(``1'')を保持する。
+              \item $J$が``0''、$K$が``1''のときの出力$Q$は、
+                    トリガパルス$T$が加えられると``0''となり、
+                    この状態でさらにトリガパルスが加えられても、
+                    元の状態(``0'')を保持する。
+              \item $J$と$K$が``0''レベルのときの出力$Q$は
+                    トリガパルス$T$が加えられるごとにレベルが反転する。
+                    (Tフリップ・フロップ:トグルフリップ・フロップ)
+              \item $PC$を``0''にすると、$J$，$K$，$T$ のレベルに関係なく、
+                    出力$Q$は``0''になる。(Pre-Clear)
+          \end{enumerate}
+
+          なお、トリガパルス入力端子の先端は否定回路同様に``〇''と書かれるが、
+          これはトリガパルスの下降部でトリガされることを意味する。
+          \begin{table}[h]
+              \caption{J-Kフリップ・フロップの真理値表}
+              \begin{center}
+                  \begin{tabular}{cc}
+                      \begin{minipage}{0.6\hsize}
+                          \begin{center}
+                              \begin{tabular}{|c|c|c|c|c|c|}
+                                  \hline
+                                  $J^{(n)}$ & $K^{(n)}$ & $T$          & $Q^{(n+1)}$            & ${\overline{Q}}^{(n + 1)}$ & 動作     \\
+                                  \hline
+                                  0         & 0         & $\downarrow$ & $Q^{(n)}$              & $ {\overline{Q}}^{(n)}$    & ホールド \\
+                                  \hline
+                                  0         & 1         & $\downarrow$ & 0                      & 1                          & リセット \\
+                                  \hline
+                                  1         & 0         & $\downarrow$ & 1                      & 0                          & セット   \\
+                                  \hline
+                                  1         & 1         & $\downarrow$ & ${\overline{Q}}^{(n)}$ & $Q^{(n)}$                  & トグル   \\
+                                  \hline
+                              \end{tabular}
+                          \end{center}
+                      \end{minipage}
+                      \begin{minipage}{0.4\hsize}
+                          \begin{center}
+                              \begin{tabular}{|c|c|}
+                                  \hline
+                                  $PC$ & $Q^{(n + 1)}$ \\
+                                  \hline
+                                  0    & 0             \\
+                                  \hline
+                                  1    & $Q^{(n)}$     \\
+                                  \hline
+                              \end{tabular}
+                          \end{center}
+                      \end{minipage}
+                  \end{tabular}
+              \end{center}
+              \label{table13}
+          \end{table}
+
+          \clearpage
+
+    \item 実習
+
+          パネル上のJ-Kフリップ・フロップの素子を使用し、
+          $J$、$K$の入力に対してトリガパルスを加えたときの出力
+          $Q$、$\overline{Q}$のレベルを表示器で確認することにより行う。
+
+          トリガパルスは、パネル上のパルス発生器から、手動による単発パルスを用いる。
+          また、$PC$端子には、同じパルス発生器のクロックパルスを使用する。
+\end{itemize}
 
 \section{検討・考察}
 
