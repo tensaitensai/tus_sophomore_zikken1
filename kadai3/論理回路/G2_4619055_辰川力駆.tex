@@ -22,9 +22,6 @@
 \追加実験者{}{}
 \表紙出力
 
-\section{実験の要旨}
-背景
-
 \section{実験の目的}
 ディジタル回路の設計・解析に必要な基本となるゲート素子(AND、OR、NOT、NAND、NOR、EX-OR)
 の基礎的動作原理を理解し、その応用について考察する。
@@ -962,31 +959,87 @@ J-Kフリップ・フロップ回路(J-K Flip・Flop Circuit)、
               \label{repotbl5}
           \end{table}
 
-          真理値表より、半減算回路は図\ref{fig2}のようになる。
+          真理値表より、全減算回路は図\ref{fig2}のようになる。
+          点線で囲っているのは半減算回路である。
           \begin{figure}[h]
               \begin{center}
-                  \includegraphics[bb=0 0 4032 3024,height=5cm]{report3_fig2.jpg}
+                  \includegraphics[bb=0 0 4032 3024,height=8cm]{report3_fig2.jpg}
               \end{center}
               \caption{全減算回路}
               \label{fig2}
           \end{figure}
-
-
 \end{itemize}
 
+\clearpage
 \subsection{レポート課題4}
 \begin{shadebox}
     10進カウンタの動作をタイムチャートで示せ。
     その上で、同期式・非同期式の10進カウンタ回路をそれぞれ示し、
     動作原理を説明せよ。
 \end{shadebox}
+\subsubsection*{非同期式10進数カウンタ回路}
+非同期式10進数カウンタ回路のタイムチャートと回路は、
+それぞれ図\ref{fig5}、図\ref{fig6}に示した。
 
+右端のNANDゲートの出力は通常は１であるが、
+カウンタの値が０、１、２、と進み１０（$Q_2=0$、$Q_3=0$）になったとき、
+NANDゲートの出力が０となる。
+この出力は全てのフリップフロップのクリア端子につながっていて、
+この回路ではクリア端子は負論理であるから、
+０になったとき、クリアが実行される。
+すなわち、カウンタの値は０になる。
+
+タイムチャートを見れば分かるように、
+短い期間でカウンタの値が１０となっている。
+このヒゲ状のノイズが問題にならないときはこのような簡単な方法で
+２のN乗以外のカウンタを作ることができる。
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[bb=0 0 2301 1109,height=6cm]{report3_fig5.jpg}
+    \end{center}
+    \caption{非同期式10進数カウンタのタイムチャート}
+    \label{fig5}
+\end{figure}
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[bb=0 0 2056 921,height=6cm]{report3_fig6.jpg}
+    \end{center}
+    \caption{非同期式10進数カウンタ回路}
+    \label{fig6}
+\end{figure}
+
+\clearpage
+\subsubsection*{同期式10進数カウンタ回路}
+同期式10進数カウンタ回路のタイムチャートと回路は、
+それぞれ図\ref{fig3}、図\ref{fig4}に示した。
+
+同期式カウンタとは、
+カウンタを構成する全てのフリップフロップが同じクロックで動作するものである。
+非同期式10進数カウンタと違い、
+ヒゲ状のノイズが生まれないようにできるが、
+非同期式10進数カウンタ回路より複雑である。
+
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[bb=0 0 2574 1218,height=7cm]{report3_fig3.jpg}
+    \end{center}
+    \caption{同期式10進数カウンタのタイムチャート}
+    \label{fig3}
+\end{figure}
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[bb=0 0 1585 1292,height=8cm]{report3_fig4.jpg}
+    \end{center}
+    \caption{同期式10進数カウンタ回路}
+    \label{fig4}
+\end{figure}
+
+\clearpage
 \section{結論}
-
-本実験では，論理回路の基本的な素子の動作とその応用を理解した．とりわけ，加減算回路などは計算機設計などでは欠かせない分野であり，さらに理解を深める必要があると思われる．
-
-本実験では，論理回路の基本的な素子の動作とその応用を理解した．特に，応用であるカウンタ回路では，トリガの重要性を理解することができた．組み合わせ回路と順序回路について，さらに理解を深める必要があるだろう．
-
+本実験では、ディジタル回路の設計・解析に必要な基本となるゲート素子
+の基礎的動作原理を理解することができた。
+また、応用であるカウンタ回路などでは、
+トリガが重要であることが分かった。
 
 % 参考文献
 \begin{thebibliography}{99}
@@ -997,12 +1050,17 @@ J-Kフリップ・フロップ回路(J-K Flip・Flop Circuit)、
     \bibitem[2]{circuit}大類重範「ディジタル電子回路」
     日本理工出版会(2017/5/15)
 
-    \bibitem[3]{rl_circuit}$RL$並列回路の概要
+    \bibitem[3]{douki_counter}同期式カウンターJKフリップフロップ使用(1)
 
-    \url{https://hegtel.com/rl-heiretsu.html}
+    \url{http://home.a00.itscom.net/hatada/dc2/chap13/syn_counter_jkff1.html}
 
-    最終閲覧日:2020/6/9
+    最終閲覧日:2020/6/17
 
+    \bibitem[4]{hidouki_counter}非同期式カウンタ
+
+    \url{http://home.a00.itscom.net/hatada/dc2/chap12/counter.html}
+
+    最終閲覧日:2020/6/17
 \end{thebibliography}
 
 \clearpage
