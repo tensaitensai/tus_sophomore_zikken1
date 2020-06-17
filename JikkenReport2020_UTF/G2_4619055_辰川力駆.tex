@@ -4,7 +4,9 @@
 \usepackage{otf}
 \usepackage{graphicx}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{hhline}
+\usepackage{fancybox,ascmac}
 \usepackage{url}
 %%%%%%%%%%%%%%%%%%
 \begin{document}
@@ -17,7 +19,7 @@
 {2020}{6}{15}{4619055}{辰川力駆}
 
 \共同実験者{}{}{}{}{}{}{}{}
-
+\追加実験者{}{}
 \表紙出力
 
 \section{実験の要旨}
@@ -745,22 +747,265 @@ J-Kフリップ・フロップ回路(J-K Flip・Flop Circuit)、
 
 \section{検討・考察}
 
+\subsection{レポート課題1}
+\begin{shadebox}
+    論理式を簡略化するカルノー図について説明せよ。
+\end{shadebox}
+カルノー図は、すべての論理変数が、
+隣り合う変数の状態が一つずつ異なるように配列を工夫したものである。
+それぞれのマス目の区画はすべての論理変数の論理積の項(最小項)を表している。
+
+分割の方法は、隣どうしのマス目は変数が一つしか変わらないように作成する。
+また、上端と下端、左端と右端は連続しているものと考え、
+この場合も変数は一つしか変わらないように作成する。
+
+\subsection{レポート課題2}
+\begin{shadebox}
+    組み合わせ回路は全てNAND回路で構成できることを例をあげて示せ。
+\end{shadebox}
+組み合わせ回路は全てNAND回路で構成できることを示すには、
+基本素子であるAND、OR、NOT、NOR回路がNAND回路のみで
+構成できることを示せばよい。
+したがって、これらを例を挙げながら示す。
+\begin{itemize}
+    \item NOT回路
+
+          NAND素子に同じ``A''を２つ入力すると考えると、ド・モルガンの定理より、
+          \begin{eqnarray*}
+              \overline{A \cdot A} &=& \overline{A} + \overline{A} \\
+              &=& \overline{A}　　(\because X+X=X)
+          \end{eqnarray*}
+          となり、NOT回路がNAND回路で構成できることを示せた。
+
+          \begin{table}[h]
+              \caption{$\overline{A}、 \overline{A \cdot A}$の真理値表}
+              \begin{center}
+                  \begin{tabular}{|c|c|c|c|}
+                      \hline
+                      $A$ & $A$ & $\overline{A}$ & $\overline{A \cdot A}$ \\
+                      \hline
+                      0   & 0   & 1              & 1                      \\
+                      \hline
+                      1   & 1   & 0              & 0                      \\
+                      \hline
+                  \end{tabular}
+              \end{center}
+              \label{repotbl1}
+          \end{table}
+          また、真理値表で表すと表\ref{repotbl1}のようになり、
+          $\overline{A} = \overline{A \cdot A}$であるから、
+          NOT回路がNAND回路で構成できることが分かる。
+
+    \item AND回路
+
+          NAND素子に``A''と``B''入力してNOT回路にすると考えると、ド・モルガンの定理より、
+          \begin{eqnarray*}
+              \overline{\overline{A \cdot B}} &=& \overline{\overline{A} + \overline{B}} \\
+              &=& \overline{\overline{A}} \cdot \overline{\overline{B}} \\
+              &=& A \cdot B　(\because \overline{\overline{X}}=X)
+          \end{eqnarray*}
+          となり、AND回路が、NAND回路とNOT回路で構成できることを示せた。
+
+          NOT回路はNAND回路のみで構成できることから、
+          AND回路がNAND回路で構成できることが示せた。
+
+          \begin{table}[h]
+              \caption{$A \cdot B、\overline{\overline{A \cdot B}}$の真理値表}
+              \begin{center}
+                  \begin{tabular}{|c|c|c|c|c|}
+                      \hline
+                      $A$ & $B$ & $A \cdot B$ & $ \overline{A \cdot B}$ & $\overline{\overline{A \cdot B}}$ \\
+                      \hline
+                      0   & 0   & 0           & 1                       & 0                                 \\
+                      \hline
+                      0   & 1   & 0           & 1                       & 0                                 \\
+                      \hline
+                      1   & 0   & 0           & 1                       & 0                                 \\
+                      \hline
+                      1   & 1   & 1           & 0                       & 1                                 \\
+                      \hline
+                  \end{tabular}
+              \end{center}
+              \label{repotbl2}
+          \end{table}
+          また、真理値表で表すと表\ref{repotbl2}のようになり、
+          $ A \cdot B=\overline{\overline{A \cdot B}}$であるから、
+          AND回路がNAND回路で構成できることが分かる。
+
+    \item OR回路
+
+          NAND素子に``$\overline{A}$''と``$\overline{B}$''入力してNOT回路にすると考えると、ド・モルガンの定理より、
+          \begin{eqnarray*}
+              \overline{\overline{A} \cdot \overline{B}} &=& \overline{\overline{A}} + \overline{\overline{B}} \\
+              &=&  A + B　(\because \overline{\overline{X}}=X)
+          \end{eqnarray*}
+          となり、OR回路が、NAND回路とNOT回路で構成できることを示せた。
+
+          NOT回路はNAND回路のみで構成できることから、
+          OR回路がNAND回路で構成できることが示せた。
+
+          \begin{table}[h]
+              \caption{$A + B、\overline{\overline{A} \cdot \overline{B}}$ の真理値表}
+              \begin{center}
+                  \begin{tabular}{|c|c|c|c|c|c|c|}
+                      \hline
+                      $A$ & $B$ & $A + B$ & $\overline{A}$ & $\overline{B}$ & $\overline{A} \cdot \overline{B}$ & $\overline{\overline{A} \cdot \overline{B}}$ \\
+                      \hline
+                      0   & 0   & 0       & 1              & 1              & 1                                 & 0                                            \\
+                      \hline
+                      0   & 1   & 1       & 1              & 0              & 0                                 & 1                                            \\
+                      \hline
+                      1   & 0   & 1       & 0              & 1              & 0                                 & 1                                            \\
+                      \hline
+                      1   & 1   & 1       & 0              & 0              & 0                                 & 1                                            \\
+                      \hline
+                  \end{tabular}
+              \end{center}
+              \label{repotbl3}
+          \end{table}
+          また、真理値表で表すと表\ref{repotbl3}のようになり、
+          $ A + B= \overline{\overline{A} \cdot \overline{B}}$であるから、
+          OR回路がNAND回路で構成できることが分かる。
+
+          \clearpage
+
+    \item NOR回路
+
+          前述のOR回路の出力を入力してNOT回路にすると考えると、
+          ド・モルガンの定理を考えることもなく、$\overline{A + B}$
+          となり、NOR回路が、OR回路とNOT回路で構成できることが分かる。
+
+          OR回路とNOT回路はNAND回路のみで構成できることから、
+          NOR回路がNAND回路で構成できることが示せた。
+\end{itemize}
+以上より、基本素子がすべてNAND回路のみで構成できることが示せたことにより、
+基本素子で構成されるすべての組み合わせに関してNAND回路のみで構成できることが示せた。
+
+\subsection{レポート課題3}
+\begin{shadebox}
+    2値論理における減算の理論を述べ、減算器の回路図を示せ。
+\end{shadebox}
+\begin{itemize}
+    \item 半減算器
+
+          2進数一桁の減算を行う回路を半減算器といい、
+          この減算形式には次の4つの基本演算($1-1、1-0、0-1、0-0$)がある。
+
+          $0-1$のときはその桁から引けないので、
+          1つ上の桁から1を借りるという操作が必要となる。
+          入力に被減数$A$、減数$B$がはいるとして、
+          $D = A - B$、桁借りを$B_O$とすると、
+          半減算器の真理値表は、表\ref{repotbl4}のようになる。
+
+          \begin{table}[h]
+              \caption{半減算器の真理値表}
+              \begin{center}
+                  \begin{tabular}{|cc|cc|}
+                      \hline
+                      \multicolumn{2}{|c|}{入力} & \multicolumn{2}{|c|}{出力}               \\
+                      \hline
+                      $A$                        & $B$                        & $B_O$ & $D$ \\
+                      \hline
+                      0                          & 0                          & 0     & 0   \\
+                      0                          & 1                          & 1     & 1   \\
+                      1                          & 0                          & 0     & 1   \\
+                      1                          & 1                          & 0     & 0   \\
+                      \hline
+                  \end{tabular}
+              \end{center}
+              \label{repotbl4}
+          \end{table}
+
+          真理値表より、半減算回路は図\ref{fig1}のようになる。
+
+          \begin{figure}[h]
+              \begin{center}
+                  \includegraphics[bb=0 0 3616 1477,height=4cm]{report3_fig1.jpg}
+              \end{center}
+              \caption{半減算回路}
+              \label{fig1}
+          \end{figure}
+
+          \clearpage
+
+    \item 全減算器
+
+          半減算器は1ビット(一桁)の減算なので、二桁以上の減算を行うには不完全で
+          下位桁からの借りを考慮しないといけない。
+          下位桁からの借りを$B_i$、上位桁からの借りを$B_O$として
+          その桁の減算を完全にしたものを全減算器という。
+
+          被減数$A$から減数$B$を引けない場合、
+          上位桁への借り$B_O$は上位桁において下位桁からの借り$B_i$として入力され、
+          $D = A - B - B_i$とすると、
+          全減算器の真理値表は、表\ref{repotbl5}のようになる。
+          \begin{table}[h]
+              \caption{半減算器の真理値表}
+              \begin{center}
+                  \begin{tabular}{|ccc|cc|}
+                      \hline
+                      \multicolumn{3}{|c|}{入力} & \multicolumn{2}{|c|}{出力}                       \\
+                      \hline
+                      $A$                        & $B$                        & $B_i$ & $B_O$ & $D$ \\
+                      \hline
+                      0                          & 0                          & 0     & 0     & 0   \\
+                      0                          & 1                          & 0     & 1     & 1   \\
+                      1                          & 0                          & 0     & 0     & 1   \\
+                      1                          & 1                          & 0     & 0     & 0   \\
+                      0                          & 0                          & 1     & 1     & 1   \\
+                      0                          & 1                          & 1     & 1     & 0   \\
+                      1                          & 0                          & 1     & 0     & 0   \\
+                      1                          & 1                          & 1     & 1     & 1   \\
+                      \hline
+                  \end{tabular}
+              \end{center}
+              \label{repotbl5}
+          \end{table}
+
+          真理値表より、半減算回路は図\ref{fig2}のようになる。
+          \begin{figure}[h]
+              \begin{center}
+                  \includegraphics[bb=0 0 4032 3024,height=5cm]{report3_fig2.jpg}
+              \end{center}
+              \caption{全減算回路}
+              \label{fig2}
+          \end{figure}
+
+
+\end{itemize}
+
+\subsection{レポート課題4}
+\begin{shadebox}
+    10進カウンタの動作をタイムチャートで示せ。
+    その上で、同期式・非同期式の10進カウンタ回路をそれぞれ示し、
+    動作原理を説明せよ。
+\end{shadebox}
+
 \section{結論}
 
+本実験では，論理回路の基本的な素子の動作とその応用を理解した．とりわけ，加減算回路などは計算機設計などでは欠かせない分野であり，さらに理解を深める必要があると思われる．
+
+本実験では，論理回路の基本的な素子の動作とその応用を理解した．特に，応用であるカウンタ回路では，トリガの重要性を理解することができた．組み合わせ回路と順序回路について，さらに理解を深める必要があるだろう．
 
 
 % 参考文献
 \begin{thebibliography}{99}
     \label{sannkoubunnkenn_chapter}
-    \bibitem{collins}
-    J. J. Collins et al.,
-    {\em PRE}, {\bf 52}(4):R3321, 1995.
-    \bibitem{izh} E. M. Izhikevich,
-    {\em IEEE Trans. NN}, {\bf 14}(6):1569, 2003.
+    \bibitem[1]{rikadai}東京理科大学工学部情報工学科「情報工学実験1 2020年度」
+    (2020/4/6)
+
+    \bibitem[2]{circuit}大類重範「ディジタル電子回路」
+    日本理工出版会(2017/5/15)
+
+    \bibitem[3]{rl_circuit}$RL$並列回路の概要
+
+    \url{https://hegtel.com/rl-heiretsu.html}
+
+    最終閲覧日:2020/6/9
+
 \end{thebibliography}
 
 \clearpage
 \appendix
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
