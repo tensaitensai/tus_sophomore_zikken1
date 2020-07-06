@@ -317,14 +317,52 @@ getsを使わずに、代わりに fgets を使えばよい。
     \end{center}
     \label{tbl1}
 \end{table}
-
 問題2-1の結果は上記の表に示した。
-これより、fgets(3)、putchar(3)を用いて実行したときの方が実行時間が短かった。
+この表により、fgetc(3)、putchar(3)を用いて実行したときの方が実行時間が短かったと分かる。
+また、sample\_10.txtやsample\_100.txtなどは実行時間が早いので差が少ない。
 
 \begin{itembox}[l]{\fbox{問題\textbf{2-2}}}
-
+    ソースコードread\_2\_1byte.cのNBUFを2048に変更し、
+    実行時間がどのように変化するか調べよ。
 \end{itembox}
-\begin{lstlisting}[caption=read\_3\_fgets.c,label=read3, style=lstC]
+\begin{table}[h]
+    \caption{read\_2\_1byte.cとread\_2\_2048byte.cの処理時間}
+    \begin{center}
+        \begin{tabular}{|c||c|c|c|c|c|c|}
+            \hline
+            \multirow{2}{*}{ファイル名} & \multicolumn{3}{|c|}{read\_2\_1byte.c} & \multicolumn{3}{|c|}{read\_2\_2048byte.c}                                             \\
+            \cline{2-7}
+                                        & real                                   & user                                      & sys      & real     & user     & sys      \\
+            \hhline{|=#===|===|}
+            sample\_10.txt              & 0m0.006s                               & 0m0.002s                                  & 0m0.002s & 0m0.006s & 0m0.002s & 0m0.002s \\
+            \hline
+            sample\_100.txt             & 0m0.007s                               & 0m0.002s                                  & 0m0.003s & 0m0.009s & 0m0.002s & 0m0.003s \\
+            \hline
+            sample\_4096.txt            & 0m0.013s                               & 0m0.005s                                  & 0m0.007s & 0m0.009s & 0m0.002s & 0m0.003s \\
+            \hline
+            sample\_8192.txt            & 0m0.024s                               & 0m0.007s                                  & 0m0.013s & 0m0.007s & 0m0.002s & 0m0.003s \\
+            \hline
+            sample\_1000000.txt         & 0m1.325s                               & 0m0.498s                                  & 0m0.791s & 0m0.012s & 0m0.002s & 0m0.004s \\
+            \hline
+            sample\_10000000.txt        & 0m12.755s                              & 0m4.850s                                  & 0m7.616s & 0m0.028s & 0m0.005s & 0m0.013s \\
+            \hline
+        \end{tabular}
+    \end{center}
+    \label{tbl2}
+\end{table}
+
+問題2-2の結果は上記の表に示した。
+この表により、NBUFを2048にして実行したときの方が実行時間が短かったと分かる。
+また、問題2-1より明らかに早くなっているので、ライブラリ関数を用いるより、
+システムコールを用いる方が早くなることが分かった。
+
+\clearpage
+\begin{itembox}[l]{\fbox{問題\textbf{2-3}}}
+    ソースコードread\_2\_1byte.c、ソースコードread\_3\_fgetc.c、
+    問題2-2で修正したコード、ソースコードread\_3\_fgets.cにおいて、
+    システムコールがどのように呼ばれているか確認せよ。
+\end{itembox}
+\begin{lstlisting}[caption=read\_3\_fgets.c,label=read4, style=lstC]
     #include <stdio.h>
     #include <stdlib.h>
     #include <unistd.h>
@@ -371,16 +409,89 @@ getsを使わずに、代わりに fgets を使えばよい。
         return 0;
     }
 \end{lstlisting}
-\begin{itembox}[l]{\fbox{問題\textbf{2-3}}}
+\clearpage
 
-\end{itembox}
-
+できません
 
 \subsection{レポート課題3}
 \begin{shadebox}
     \fbox{演習\textbf{2}}で作ったプログラムを基に、標準入力から読み込み、
     その行数を出力するコマンドを作成せよ（「wc -l」と同等）。
 \end{shadebox}
+\begin{lstlisting}[caption=kadai3.c,label=kadai3, style=lstC]
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <unistd.h>
+    #include <sys/types.h>
+    #include <sys/stat.h>
+    #include <fcntl.h>
+    
+    #define NBUF 2048 //buf size
+    
+    void die(const char *s)
+    {
+        perror(s);
+        exit(1);
+    }
+    
+    int totalcnt = 0; //totalの行数を数える変数
+    void wc_l(const char *path)
+    {
+        int cnt = 0; // 行数を数える変数
+        unsigned char buf[NBUF];
+    
+        FILE *f = fopen(path, "r");
+        if (!f)
+            die(path);
+        int c;
+        while (fgets(buf, NBUF, f) != NULL)
+        {
+            cnt++; // 一行読み込むごとにカウントする
+        }
+        if (fclose(f))
+            die(path);
+    
+        printf("%8d %s\n", cnt, path); // ファイル名と行数を出力する
+        totalcnt += cnt;               // 行数をtotalに足す
+    }
+    
+    int main(int argc, char *argv[])
+    {
+        if (argc < 2)
+        {
+            fprintf(stderr, "usage:%s file\n", argv[0]);
+            exit(1);
+        }
+        int i;
+        if (argc == 2) // 一つのtxtしか読み込まない場合は行数のtotalがいらない
+        {
+            for (i = 1; i < argc; ++i)
+            {
+                wc_l(argv[i]);
+            }
+        }
+        else // 複数の行数を読み込んだ場合は最後にtotalの行数を出力する。
+        {
+            for (i = 1; i < argc; ++i)
+            {
+                wc_l(argv[i]);
+            }
+            printf("%8d %s\n", totalcnt, "total"); //totalの行数を表示
+        }
+    
+        return 0;
+    }
+\end{lstlisting}
+
+上記に作成したソースコード(kadai3.c)を示した。
+\begin{lstlisting}[style = lstbash]
+    $ ./kadai3 sample_100.txt
+          10 sample_100.txt
+    $ ./kadai3 sample_10.txt sample_4096.txt
+           1 sample_10.txt
+         410 sample_4096.txt
+         411 total
+\end{lstlisting}
 
 \subsection{レポート課題4}
 \begin{shadebox}
@@ -389,8 +500,97 @@ getsを使わずに、代わりに fgets を使えばよい。
     実行して正常に動作することを確かめること。
     また、実行結果をレポートに記載すること。
 \end{shadebox}
+\begin{lstlisting}[caption=kadai4.c,label=kadai4, style=lstC]
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <unistd.h>
+    #include <string.h>
+    #include <sys/types.h>
+    #include <sys/wait.h>
+    #include <fcntl.h>
+    
+    #define MAX_LINE_IN 1000
+    #define MAX_ARGS 30
+    
+    void redirect(char *args[], int potnt); // リダイレクトする関数
+    
+    int main(int argc, char *argv[])
+    {
+        int pid, status;
+        char line_in[MAX_LINE_IN];
+        char *args[MAX_ARGS];
+        int nargs;
+    
+        //tokenize
+        for (;;)
+        {
+            printf("> ");
+            if (fgets(line_in, MAX_LINE_IN, stdin) == NULL)
+                exit(0);
+            line_in[strlen(line_in) - 1] = '\0';
+    
+            char *token = strtok(line_in, " ");
+            nargs = 0;
+            args[nargs++] = token;
+            while (token != NULL)
+            {
+                if (token != NULL)
+                {
+                    token = strtok(NULL, " ");
+                    args[nargs++] = token;
+                }
+            }
+            args[nargs] = '\0';
+    
+            if (strcmp(args[0], "exit") == 0)
+            {
+                return 0;
+            }
+    
+            if (fork() == 0)
+            {
+                int i;
+                for (i = 0; args[i] != NULL; i++)
+                {
+                    if (strcmp(args[i], ">") == 0) // 出力先を切り替えるリダイレクトが存在すればそこに出力
+                    {
+                        redirect(args, i); // リダイレクトする関数
+                    }
+                }
+                execvp(args[0], args);
+                printf("command not found\n");
+                exit(1);
+            }
+            else
+            {
+                wait(&status);
+            }
+        }
+    
+        return 0;
+    }
+    
+    void redirect(char *args[], int point) // リダイレクトする関数
+    {
+        int fd;
+    
+        args[point] = '\0'; // ">"があった場所を終端文字にする
+        fd = open(args[point + 1], O_WRONLY | O_CREAT, 0664);
+        close(STDOUT_FILENO);
+        dup(fd);
+        execvp(args[0], args);
+    }
+\end{lstlisting}
+
+上記に作成したソースコード(kadai4.c)を示した。
+%リダイレクションの機能は上記のコードの42行目から書いてある。strcmpを用いて第1引数に"\verb|>|"が入力された場合に条件文の中に入りファイルディスクリプタを用いて標準出力に出力されるものをファイルに書き込むようにしている。
 
 \section{結論}
+%%つくる
+今回の実験を通してシステムコールやライブラリ関数の意味、
+用途を理解し、実際にC言語とともに用いてそれらを実装かつ実行することができた。
+また、シェルをC言語を用いて自作し、
+それによってシェルそのものの仕組みがいかなるものであるかを学ぶことができた。
 
 %参考文献
 \begin{thebibliography}{99}
