@@ -1,0 +1,417 @@
+%4619055 課題5
+\documentclass[12pt]{jarticle}
+\usepackage{TUSIreport}
+\usepackage{otf}
+\usepackage{listings,jlisting}
+\usepackage{color}
+\usepackage{fancybox,ascmac}
+\usepackage{amssymb, amsmath}
+\usepackage{hhline}
+\usepackage{multirow}
+\usepackage{url}
+\lstdefinestyle{lstC}{
+    language={C},
+    backgroundcolor={\color[gray]{.85}},
+    basicstyle={\small},
+    identifierstyle={\small},
+    commentstyle={\small\ttfamily \color[rgb]{0,0.5,0}},
+    keywordstyle={\small\bfseries \color[rgb]{1,0,0}},
+    ndkeywordstyle={\small},
+    stringstyle={\small\ttfamily \color[rgb]{0,0,1}},
+    frame={tb},
+    breaklines=true,
+    columns=[l]{fullflexible},
+    numbers=left,
+    xrightmargin=0zw,
+    xleftmargin=3zw,
+    numberstyle={\scriptsize},
+    stepnumber=1,
+    numbersep=1zw,
+    morecomment=[l]{//}
+}
+\lstdefinestyle{lstbash}{
+	language={bash},
+	showstringspaces={false},
+	tabsize={4},
+    breaklines=true,
+    frame={tb},
+    basicstyle={\footnotesize},
+    backgroundcolor={\color[cmyk]{0.07,0.777,0,0.561}},
+	commentstyle={\itshape \color[rgb]{0.0,0.6,0.0}},
+	keywordstyle={\bfseries \color[cmyk]{1.0,0.0,0.0,0.3}},
+    stringstyle={\ttfamily \color[cmyk]{0.0, 1.0, 0.0, 0.0}},
+}
+%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 表紙を出力する場合は，\提出者と\共同実験者をいれる
+% \提出者{科目名}{課題名}{提出年}{提出月}{提出日}{学籍番号}{氏名}
+% \共同実験者{一人目}{二人目}{..}{..}{..}{..}{..}{八人目}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\提出者{情報工学実験1}{課題5 システム・プログラミング}
+{2020}{7}{6}{4619055}{辰川力駆}
+\共同実験者{}{}{}{}{}{}{}{}
+\追加実験者{}{}
+\表紙出力
+
+\section{実験目的}
+本実験では、システムコールを用いたシステムプログラミングを学ぶと共に、
+プロセスの基本概念、並行プログラミングの基礎を理解する。
+ここで対象とするオペレーティングシステム(Operating System、OS)は、
+POSIX(IEEE Std 1003.1)準拠の各種UNIXやLinuxなどUNIX系OSである。
+
+\section{実験の原理(理論)}
+\subsection{カーネル}
+すべてのコンピュータには、OSと呼ばれる基礎的なプログラムの集合があり、
+その集合の中で最も重要なプログラムがカーネル(Kernel)である。
+
+カーネルの重要な役割は、
+ハードウェア(デバイス)の制御およびユーザプログラムに対する実行環境の提供である。
+MS-DOSなどのOSではユーザプログラムが直接デバイスを操作することが許されているが、
+UNIX系のOSではユーザプログラムがデバイスを直接操作したり、
+任意のメモリ位置へのアクセスすることが禁止されている。
+同じ種類のデバイスでもメーカーが違えば細かい制御方法が異なるため、
+カーネルはそのようなデバイス毎の詳細をユーザから隠蔽し、
+代わりにデバイスを操作するための共通インターフェース（システムコール）を提供する。
+ユーザプログラムとデバイスの間にカーネルが入ることの利点としては、
+ユーザは各デバイスの制御方法の詳細を知る必要がないためプログラミングが容易となることや、
+カーネルが処理を実行する前に処理要求の妥当性の確認ができるため、
+システムのセキュリティを大幅に向上させられることが挙げられる。
+また、カーネルが同じインターフェースを提供する限り同じプログラムが実行できるため、
+プログラムの可搬性も向上させることができる。
+
+\subsection{システムコール}
+ハードウェアと直接やり取りができるのはカーネルだけに限定されているため、
+ユーザプログラムでハードウェアを操作したいときは、
+カーネルを通して間接的に操作することになる。
+そのために使うのがシステムコールである。
+プログラムからのシステムコールの呼び出し方の見た目は通常の関数と変わらないが、
+カーネルに仕事させるためにはシステムコールを使わなければならない。
+通常の関数とシステムコールの違いは、
+それがカーネルに対する明示的な要求かどうかである。
+
+\subsection{ライブラリ関数}
+プログラムを作る際、システムコール以外にも様々なライブラリ関数が使用できる。
+最も代表的なものとしては標準Cライブラリがある。
+標準Cライブラリにはprintf()、exit()、strlen()などが含まれる。
+ライブラリ関数もシステムコールを使って実装されている場合があり、
+例えばprintf()はwrite()というシステムコールが使われている。
+通常、各システムコールに対応するライブラリ関数が用意されているが、
+逆に各ライブラリ関数に対してシステムコールが存在するわけではない。
+算術関数などはシステムコールを使う必要がない。
+
+関数の定義を調べるためにはmanコマンドが利用可能である。
+manページはいくつかのセクションに分かれている。
+例えばprintfにはコマンドとライブラリ関数があるため、それぞれ
+\begin{lstlisting}[style = lstbash]
+    $ man 1 printf   # ユーザコマンド
+    $ man 3 printf   # ライブラリ関数
+\end{lstlisting}
+のようにセクションを指定して検索する必要がある。
+以後、本実験では関数名の後ろにそれがシステムコールならば(2)、
+ライブラリ関数ならば(3)というようにセクション番号をつけてどの関数を使用しているかわかるようにする。
+
+\subsection{プロセス}
+プロセスの考え方は、どのようなOSでも基本となる考え方であり、
+プログラムの実体として定義されている。
+プロセスは、プログラムを実行した際などに生成され、
+場合によっては子プロセスをさらに生成し、処理が終わると最後は消滅する。
+カーネルはプロセスにシステムの資源を割り当て、
+状態を管理する必要があるので、
+詳細は触れないがプロセスディスクリプタを用いてプロセスを管理している。
+各プロセスには重複しない番号（プロセスID)が振られており、
+ユーザはプロセスIDを使うことで、プロセスを一意に指定することができる。
+新しく生成されたプロセスのプロセスIDは直前に割り振られたプロセスID$+1$となる。
+プロセスIDが$0$のプロセスはシステム起動時に生成される特別なプロセスである。
+
+\subsection{ファイル}
+ファイルとはバイト列として構造化された情報の入れ物である。
+UNIX系OSではファイルはすべて一つの木構造で階層的に管理されており、
+カーネルはファイルの中身を関知しない。
+枝分かれの部分はディレクトリと呼ばれる特別なファイルがあり、
+その枝にぶら下がっている下位の階層のファイルを管理している。
+ディレクトリの中で最も上位に位置するのをルートディレクトリと呼び、
+ルートディレクトリから順番にディレクトリを辿ることで任意のファイルを指定することができる。
+この木構造の中には、ディレクトリだけでなくテキストファイルやバイナリファイル、
+シンボリックリンク、デバイスファイルが含まれる。これらは全てファイルとして扱われる。
+
+一般ファイルは、テキストファイルやプログラムなどである。
+カーネルはファイルの中身を単にバイト列として構造化されたものとして扱う。
+このようなファイルのことをストリームファイルと呼ぶ。
+デバイスファイルは、各種デバイスである。
+デバイスファイルもストリームファイルとして一般ファイルと同じように扱うことができる。
+プログラムからストリームファイルにアクセスするとき、
+ファイルディスクリプタというものを使う。
+ファイルディスクリプタはプログラムから見ると単なる整数であるが、
+カーネル側ではオープンされたストリームファイルと対応づけられている。
+通常はopen(2)を用いてファイルをオープンし、
+対応するファイルディスクリプタを取得する必要があるが、
+標準入力、標準出力、標準エラー出力の3つはプログラム実行時に自動的にオープンされる。
+それぞれのファイルディスクリプタは0、1、2である。
+通常、標準入力にはキーボードが、
+標準出力および標準エラー出力にはディスプレイが割り当てられている。
+
+\clearpage
+\section{実験環境}
+\begin{itemize}
+    \item MacBook Pro(16-inch,2019)
+          \begin{itemize}
+              \item ProductName: Mac OS X
+              \item ProductVersion:	10.15.5
+              \item BuildVersion: 19F101
+              \item プロセッサ: 2.6 GHz 6コアIntel Core i7
+              \item メモリ: 16 GB 2667 MHz DDR4
+          \end{itemize}
+    \item gcc version : 9.3.0
+\end{itemize}
+
+\section{実験結果・考察}
+\subsection{レポート課題1}
+\begin{shadebox}
+    fgetsの他にgetsという関数があるが、この関数は``絶対に"使ってはならない。
+    getsの定義を調べ、使用してはならない理由について説明せよ。
+\end{shadebox}
+gets関数は char *gets(char *s)である。
+標準入力から１行を読み込み、
+改行コード\verb|\|nまたはEOFにたどり着くと、
+ヌル文字\verb|\|0を追加してchar *型で返します。
+入力した文字列が長くて用意している限界の配列の
+文字数を超えた場合、割り当てられたメモリ範囲を超えて書き込みが行われ、
+バッファオーバーフローとなる。
+よってgets関数が引き起こす暴走が
+非常に危険であるから``絶対に"使ってはならない。
+
+これに対処する解決法としては、
+getsを使わずに、代わりに fgets を使えばよい。
+
+\subsection{レポート課題2}
+\begin{shadebox}
+    \fbox{問題\textbf{2-1}}$\sim$\fbox{問題\textbf{2-3}}の結果をそれぞれまとめて考察せよ。
+\end{shadebox}
+
+\begin{itembox}[l]{\fbox{問題\textbf{2-1}}}
+    ソースコードread\_2\_1byte.cとソースコードread\_3\_fgetc.cのプログラムを用いて、
+    様々なファイルの処理時間を計測して比較せよ。
+    時間の計測にはtime関数を用い、読み込んだファイルは/dev/nullへリダイレクトせよ。
+\end{itembox}
+\clearpage
+\begin{lstlisting}[caption=read\_2\_1byte.c,label=read,style = lstC]
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <unistd.h>
+    #include <sys/types.h>
+    #include <sys/stat.h>
+    #include <fcntl.h>
+    #define NBUF 1 //buf size
+    
+    void die(const char *s)
+    {
+        perror(s);
+        exit(1);
+    }
+    
+    void cat(const char *path)
+    {
+        ssize_t n;
+        unsigned char buf[NBUF];
+        int fd = open(path, O_RDONLY);
+        if (fd < 0)
+            die(path);
+        for (;;)
+        {
+            n = read(fd, buf, NBUF);
+            if (n < 0)
+                die(path);
+            if (n == 0)
+                break;
+            if (write(STDOUT_FILENO, buf, n) < 0)
+                die(path);
+        }
+        if (close(fd) < 0)
+            die(path);
+    }
+    
+    int main(int argc, char *argv[])
+    {
+        if (argc < 2)
+        {
+            fprintf(stderr, "usage:%s file\n", argv[0]);
+            exit(1);
+        }
+        int i;
+        for (i = 1; i < argc; ++i)
+        {
+            cat(argv[i]);
+        }
+        return 0;
+    }
+\end{lstlisting}
+\clearpage
+\begin{lstlisting}[caption=read\_3\_fgetc.c,label=read2, style=lstC]
+    #include <stdio.h>
+    #include <stdlib.h>
+    
+    void die(const char *s)
+    {
+        perror(s);
+        exit(1);
+    }
+    
+    void cat(const char *path)
+    {
+        FILE *f = fopen(path, "r");
+        if (!f)
+            die(path);
+    
+        int c;
+        while ((c = fgetc(f)) != EOF)
+        {
+            if (putchar(c) < 0)
+                die(path);
+        }
+    
+        if (fclose(f))
+            die(path);
+    }
+    
+    int main(int argc, char *argv[])
+    {
+        if (argc < 2)
+        {
+            fprintf(stderr, "usage:%s file\n", argv[0]);
+            exit(1);
+        }
+    
+        int i;
+        for (i = 1; i < argc; ++i)
+        {
+            cat(argv[i]);
+        }
+    
+        return 0;
+    }
+\end{lstlisting}
+\clearpage
+\begin{table}[t]
+    \caption{read\_2\_1byte.cとread\_3\_fgetc.cの処理時間}
+    \begin{center}
+        \begin{tabular}{|c||c|c|c|c|c|c|}
+            \hline
+            \multirow{2}{*}{ファイル名} & \multicolumn{3}{|c|}{read\_2\_1byte.c} & \multicolumn{3}{|c|}{read\_3\_fgetc.c}                                             \\
+            \cline{2-7}
+                                        & real                                   & user                                   & sys      & real     & user     & sys      \\
+            \hhline{|=#===|===|}
+            sample\_10.txt              & 0m0.006s                               & 0m0.002s                               & 0m0.002s & 0m0.005s & 0m0.001s & 0m0.002s \\
+            \hline
+            sample\_100.txt             & 0m0.007s                               & 0m0.002s                               & 0m0.003s & 0m0.005s & 0m0.001s & 0m0.002s \\
+            \hline
+            sample\_4096.txt            & 0m0.013s                               & 0m0.005s                               & 0m0.007s & 0m0.005s & 0m0.001s & 0m0.002s \\
+            \hline
+            sample\_8192.txt            & 0m0.024s                               & 0m0.007s                               & 0m0.013s & 0m0.006s & 0m0.002s & 0m0.002s \\
+            \hline
+            sample\_1000000.txt         & 0m1.325s                               & 0m0.498s                               & 0m0.791s & 0m0.038s & 0m0.027s & 0m0.003s \\
+            \hline
+            sample\_10000000.txt        & 0m12.755s                              & 0m4.850s                               & 0m7.616s & 0m0.189s & 0m0.174s & 0m0.007s \\
+            \hline
+        \end{tabular}
+    \end{center}
+    \label{tbl1}
+\end{table}
+
+問題2-1の結果は上記の表に示した。
+これより、fgets(3)、putchar(3)を用いて実行したときの方が実行時間が短かった。
+
+\begin{itembox}[l]{\fbox{問題\textbf{2-2}}}
+
+\end{itembox}
+\begin{lstlisting}[caption=read\_3\_fgets.c,label=read3, style=lstC]
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <unistd.h>
+    #include <sys/types.h>
+    #include <sys/stat.h>
+    #include <fcntl.h>
+    
+    #define NBUF 2048 //buf size
+    
+    void die(const char *s)
+    {
+        perror(s);
+        exit(1);
+    }
+    
+    void cat(const char *path)
+    {
+        unsigned char buf[NBUF];
+        FILE *f = fopen(path, "r");
+        if (!f)
+            die(path);
+        int c;
+        while (fgets(buf, NBUF, f) != NULL)
+        {
+            printf("%s\n", buf);
+        }
+        if (fclose(f))
+            die(path);
+    }
+    
+    int main(int argc, char *argv[])
+    {
+        if (argc < 2)
+        {
+            fprintf(stderr, "usage:%s file\n", argv[0]);
+            exit(1);
+        }
+        int i;
+        for (i = 1; i < argc; ++i)
+        {
+            cat(argv[i]);
+        }
+    
+        return 0;
+    }
+\end{lstlisting}
+\begin{itembox}[l]{\fbox{問題\textbf{2-3}}}
+
+\end{itembox}
+
+
+\subsection{レポート課題3}
+\begin{shadebox}
+    \fbox{演習\textbf{2}}で作ったプログラムを基に、標準入力から読み込み、
+    その行数を出力するコマンドを作成せよ（「wc -l」と同等）。
+\end{shadebox}
+
+\subsection{レポート課題4}
+\begin{shadebox}
+    \fbox{演習\textbf{5}}で作成したプログラムにリダイレクト「$>$」の機能を実装せよ。
+    親プロセス側、小プロセス側どちらでファイルにリダイレクトしても構わないが、
+    実行して正常に動作することを確かめること。
+    また、実行結果をレポートに記載すること。
+\end{shadebox}
+
+\section{結論}
+
+%参考文献
+\begin{thebibliography}{99}
+    \label{sannkoubunnkenn_chapter}
+    \bibitem[1]{rikadai}東京理科大学工学部情報工学科 情報工学実験1 2020年度
+    東京理科大学工学部情報工学科出版
+    \bibitem[2]{gets}Ｃ言語講座：gets( )とscanf( )の問題点の解決
+
+    \url{http://www1.cts.ne.jp/clab/hsample/IO/IO16.html}
+
+    最終閲覧日:2020/7/6
+
+    \bibitem[3]{texcolor}LaTeXで色付きソースコードを貼り付け
+
+    \url{http://yu00.hatenablog.com/entry/2015/05/14/214121}
+
+    最終閲覧日:2020/7/6
+
+\end{thebibliography}
+
+\clearpage
+\appendix
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}

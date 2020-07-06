@@ -18,11 +18,9 @@ void cat(const char *path)
 {
     ssize_t n;
     unsigned char buf[NBUF];
-
     int fd = open(path, O_RDONLY);
     if (fd < 0)
         die(path);
-
     for (;;)
     {
         n = read(fd, buf, NBUF);
@@ -44,7 +42,6 @@ int main(int argc, char *argv[])
         fprintf(stderr, "usage:%s file\n", argv[0]);
         exit(1);
     }
-
     int i;
     for (i = 1; i < argc; ++i)
     {
