@@ -1,0 +1,36 @@
+4619055 辰川力駆
+
+1.
+. カレントディレクトリ
+.. 親ディレクトリ
+> 出力リダイレクト（上書き）
+< （ファイルから）標準入力
+>> 出力リダイレクト（追記）
+$? 終了ステータス
+? 1文字のワイルドカード
+* 文字列の長さが任意のワイルドカード
+| パイプ
+
+2.
+$ grep -c Alice alice.txt
+28
+
+3.
+$ cat alice.txt | tr " " "\n" | sort -uf | wc -l
+787
+
+4.
+$ cat alice.txt | tr " " "\n" | sort -uf | grep -vwif partial_words.txt | wc -l
+756
+
+5.
+$ grep -c 吾輩 iamcat.txt
+3
+
+6.
+$ grep -c 猫 iamcat.txt
+2
+
+7.
+$ cat iamcat.txt | tr "\n" " " | tr "。" "\n" | grep 掌 | grep 書生 | wc -l
+2

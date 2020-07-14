@@ -1,0 +1,7 @@
+5 c Cathy
+6 e Emilia
+5 a Alice
+3 g Guy
+7 f Francis
+3 b Bob
+6 d Daniel

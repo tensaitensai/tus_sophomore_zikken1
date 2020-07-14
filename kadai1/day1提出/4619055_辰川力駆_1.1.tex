@@ -1,0 +1,706 @@
+\documentclass[a4paper,12pt]{jarticle}
+\newcommand{\vect}[1]{\mbox{\boldmath${#1}$}}
+\setlength{\textwidth}{170mm}       % テキストの幅
+\setlength{\textheight}{260mm}      % テキストの高さ
+\setlength{\oddsidemargin}{-5mm}    % 偶数ページの左マージン
+\setlength{\evensidemargin}{0mm}    % 奇数ページの左マージン
+\setlength{\topmargin}{-25mm}       % 上のマージン
+\usepackage{listings,jlisting}
+\usepackage{multirow}
+\usepackage[dvipdfmx]{graphicx}
+\lstset{
+    frame={tblr},
+    basicstyle={\footnotesize},
+    tabsize={4},
+}
+\begin{document}
+\begin{center}
+    学籍番号: \underline{4619055}，氏名: \underline{辰川力駆}
+\end{center}
+
+\underline{\Large 演習課題 : コマンドの調査}
+
+各コマンドのオプションを各自で意味を調査せよ。
+
+\begin{itemize}
+    \item mkdir・・・ディレクトリを新規作成するコマンド
+          \begin{lstlisting}
+    $ mkdir ~/textprocessing
+        \end{lstlisting}
+    \item cp・・・ファイルやディレクトリをコピーするコマンド
+          \begin{lstlisting}
+    $ cp jexpch1/alice.txt jexpch1/alice2.txt
+    $ cp -r jexpch1 jexpchi1_copy
+            \end{lstlisting}
+          \begin{table}[h]
+              \begin{center}
+                  \begin{tabular}{|c|c|} \hline
+                      オプション          & 意味                                                     \\ \hline
+                      \multirow{2}{*}{-r} & コピー元にディレクトリを指定した場合、再帰的にコピーする \\
+                                          & （サブディレクトリも含めて）                             \\ \hline
+                  \end{tabular}
+              \end{center}
+          \end{table}
+    \item mv・・・ファイルやディレクトリを(移動する・名前を変更する)コマンド
+          \begin{lstlisting}
+    $ mv jexpch1/alice2.txt jexpch1/alice_copy.txt
+    $ mv jexpch1 textprocessing
+            \end{lstlisting}
+    \item cd・・・カレントディレクトリを変更するコマンド
+          \begin{lstlisting}
+    $ cd ~/textprocessing/jexpch1
+    $ cd ..
+    $ ls .
+    jexpch1
+            \end{lstlisting}
+    \item echo・・・メッセージなどを表示するコマンド
+          \begin{lstlisting}
+    $ echo "abcdefg"
+    abcdefg
+    $ echo -n "abcdefg"
+    abcdefg%
+        \end{lstlisting}
+          \begin{table}[h]
+              \begin{center}
+                  \begin{tabular}{|c|c|} \hline
+                      オプション & 意味                         \\ \hline
+                      -n         & 出力文字の最後の改行をしない \\ \hline
+                  \end{tabular}
+              \end{center}
+          \end{table}
+    \item date・・・現在の日時を表示したり、設定し直したりするためのコマンド
+          \begin{lstlisting}
+    $ date
+    2020年 7月13日 月曜日 14時46分26秒 JST
+            \end{lstlisting}
+          \clearpage
+    \item grep・・・ファイルの中で文字列が含まれている行を表示するコマンド
+          \begin{lstlisting}
+    $ grep raspberry /usr/share/dict/words
+    raspberry
+    raspberrylike
+    $ grep -o raspberry /usr/share/dict/words
+    raspberry
+    raspberry
+    $ grep -v a jexpch1/sample1.txt
+    b Bob
+    g Guy
+    $ grep Guy jexpch1/sample1.txt jexpch1/sample2.txt
+    jexpch1/sample1.txt:g Guy
+    jexpch1/sample2.txt:g Guy
+                \end{lstlisting}
+          \begin{table}[h]
+              \begin{center}
+                  \begin{tabular}{|c|c|} \hline
+                      オプション & 意味                             \\ \hline
+                      -o         & 検索結果に一致した文字を表示する \\ \hline
+                      -v         & 一致しないものを検索する         \\ \hline
+                      -f         & ディレクトリ内も検索対象とする   \\ \hline
+                  \end{tabular}
+              \end{center}
+          \end{table}
+    \item $[$・・・記述内容が真(0)か偽(1)か評価する。引数の最後は必ず$]$でなければならない。
+          \begin{lstlisting}
+    $ cd jexpch1
+    $ [ -e sample1.txt ]
+    $ echo $?
+    0
+    $ [ -e samplex.txt ]
+    $ echo $?
+    1
+    $ [ ! -e sample1.txt ]
+    $ echo $?
+    1
+    $ [ 5 -lt 10 ]
+    $ echo $?
+    0
+    $ [ 5 -gt 10 ]
+    $ echo $?
+    1
+    $ [ "abc" = "abc" ]
+    $ echo $?
+    0
+    $ [ "abc" != "abe" ]
+    $ echo $?
+    0
+    $ [ ! "abc" = "abe" ]
+    $ echo $?
+    0
+                    \end{lstlisting}
+
+          \clearpage
+          \begin{table}[t]
+              \begin{center}
+                  \begin{tabular}{|c|c|} \hline
+                      オプション & 意味                   \\ \hline
+                      -e         & 存在するなら真         \\ \hline
+                      !          & 結果の真と偽が逆になる \\ \hline
+                      -lt        & より小さいなら真       \\ \hline
+                      -gt        & より大きいなら真       \\ \hline
+                      =          & 等しければ真           \\ \hline
+                      !=         & 等しくなければ真       \\ \hline
+                  \end{tabular}
+              \end{center}
+          \end{table}
+    \item test・・・ $[$ コマンドと同じ
+    \item touch・・・空のファイルを作成したり、時刻を変更するコマンド
+          \begin{lstlisting}
+    $ ls -lat jexpch1
+    total 288
+    drwxr-xr-x   3 tea  staff     96  7 13 14:33 ..
+    drwxr-xr-x@ 18 tea  staff    576  7 13 14:32 .
+    -rw-r--r--@  1 tea  staff  73529  5  8  2017 partial_words.txt
+    -rw-r--r--@  1 tea  staff     15  5  8  2017 ex2.4.txt
+    -rw-r--r--@  1 tea  staff     24  5  8  2017 output.txt
+    -rw-r--r--@  1 tea  staff      0  5  8  2017 sample11.txt
+    -rw-r--r--@  1 tea  staff     15  4 24  2017 sort_sample2.txt
+    -rw-r--r--@  1 tea  staff     28  4 24  2017 abcd.txt
+    -rw-r--r--@  1 tea  staff     70  4 24  2017 sort_sample1.txt
+    -rw-r--r--@  1 tea  staff  11658  4 24  2017 alice.txt
+    -rw-r--r--@  1 tea  staff   2622  4 24  2017 iamcat.txt
+    -rw-r--r--@  1 tea  staff     56  4 24  2017 sample1.txt
+    -rw-r--r--@  1 tea  staff     54  4 24  2017 sample2.txt
+    -rw-r--r--@  1 tea  staff     36  4 24  2017 sample3.txt
+    -rw-r--r--@  1 tea  staff     90  4 24  2017 sample4.txt
+    -rw-r--r--@  1 tea  staff    150  4 24  2017 sample5.txt
+    -rw-r--r--@  1 tea  staff     18  4 24  2017 sample6.txt
+    $ touch jexpch1/alice3.txt
+    $ touch jexpch1/alice_copy.txt
+    $ ls -lat jexpch1
+    total 288
+    -rw-r--r--@  1 tea  staff  11658  7 13 15:58 alice_copy.txt
+    drwxr-xr-x@ 19 tea  staff    608  7 13 15:57 .
+    -rw-r--r--   1 tea  staff      0  7 13 15:57 alice3.txt
+    drwxr-xr-x   3 tea  staff     96  7 13 14:33 ..
+    -rw-r--r--@  1 tea  staff  73529  5  8  2017 partial_words.txt
+    -rw-r--r--@  1 tea  staff     15  5  8  2017 ex2.4.txt
+    -rw-r--r--@  1 tea  staff     24  5  8  2017 output.txt
+    -rw-r--r--@  1 tea  staff      0  5  8  2017 sample11.txt
+    -rw-r--r--@  1 tea  staff     15  4 24  2017 sort_sample2.txt
+    -rw-r--r--@  1 tea  staff     28  4 24  2017 abcd.txt
+    -rw-r--r--@  1 tea  staff     70  4 24  2017 sort_sample1.txt
+    -rw-r--r--@  1 tea  staff  11658  4 24  2017 alice.txt
+    -rw-r--r--@  1 tea  staff   2622  4 24  2017 iamcat.txt
+    -rw-r--r--@  1 tea  staff     56  4 24  2017 sample1.txt
+    -rw-r--r--@  1 tea  staff     54  4 24  2017 sample2.txt
+    -rw-r--r--@  1 tea  staff     36  4 24  2017 sample3.txt
+    -rw-r--r--@  1 tea  staff     90  4 24  2017 sample4.txt
+    -rw-r--r--@  1 tea  staff    150  4 24  2017 sample5.txt
+    -rw-r--r--@  1 tea  staff     18  4 24  2017 sample6.txt
+                    \end{lstlisting}
+          \clearpage
+    \item seq・・・指定した数字の列を出力するコマンド
+          \begin{lstlisting}
+    $ seq 10
+    1
+    2
+    3
+    4
+    5
+    6
+    7
+    8
+    9
+    10
+    $ seq 2 5
+    2
+    3
+    4
+    5
+                    \end{lstlisting}
+    \item cat・・・ファイルを連結・表示するためのコマンド
+          \begin{lstlisting}
+    $ cat jexpchi1/sample1.txt
+    a Alice
+    b Bob
+    c Cathy
+    d Daniel
+    e Emilia
+    f Francis
+    g Guy
+    $ cat -b jexpchi1/sample1.txt  
+        1	a Alice
+        2	b Bob
+        3	c Cathy
+        4	d Daniel
+        5	e Emilia
+        6	f Francis
+        7	g Guy
+    $ cat -n jexpchi1/sample1.txt  
+        1	a Alice
+        2	b Bob
+        3	c Cathy
+        4	d Daniel
+        5	e Emilia
+        6	f Francis
+        7	g Guy
+        \end{lstlisting}
+          \begin{table}[h]
+              \begin{center}
+                  \begin{tabular}{|c|c|} \hline
+                      オプション & 意味                                         \\ \hline
+                      -b         & 行番号を付け加える(ただし空白行には付けない) \\ \hline
+                      -n         & 行番号を付け加える                           \\ \hline
+                  \end{tabular}
+              \end{center}
+          \end{table}
+
+          \clearpage
+    \item head・・・最初の数行を表示するコマンド
+          \begin{lstlisting}
+    $ head -n 3 jexpchi1/sample1.txt
+    a Alice
+    b Bob
+    c Cathy
+    $ head -3 jexpchi1/sample1.txt
+    a Alice
+    b Bob
+    c Cathy
+        \end{lstlisting}
+          \begin{table}[h]
+              \begin{center}
+                  \begin{tabular}{|c|c|} \hline
+                      オプション & 意味                             \\ \hline
+                      -n         & 先頭から指定した行数のみ表示する \\ \hline
+                  \end{tabular}
+              \end{center}
+          \end{table}
+    \item tail・・・最後の数行を表示するコマンド
+          \begin{lstlisting}
+    $ tail -n 3 jexpchi1/sample1.txt
+    e Emilia
+    f Francis
+    g Guy
+    $ tail -3 jexpchi1/sample1.txt
+    e Emilia
+    f Francis
+    g Guy
+            \end{lstlisting}
+    \item wc・・・テキストファイルの文字数や行数を数えるためのコマンド
+          \begin{lstlisting}
+    $ wc abcd.txt
+        7       7      28 abcd.txt
+    $ wc -c abcd.txt
+        28 abcd.txt
+    $ wc -l abcd.txt
+         7 abcd.txt
+                \end{lstlisting}
+          \begin{table}[h]
+              \begin{center}
+                  \begin{tabular}{|c|c|} \hline
+                      オプション & 意味               \\ \hline
+                      -c         & バイト数を表示する \\ \hline
+                      -l         & 行の数を表示する   \\ \hline
+                  \end{tabular}
+              \end{center}
+          \end{table}
+          \clearpage
+    \item nkf・・・文字コードを変換する
+          \begin{lstlisting}
+    $ cd jexpchi1
+    $ nkf -e iamcat.txt > e_iamcat.txt
+    $ nkf -g e_iamcat.txt
+    EUC-JP
+    $ nkf -j iamcat.txt > j_iamcat.txt
+    $ nkf -g j_iamcat.txt
+    ISO-2022-JP
+    $ nkf -s iamcat.txt > s_iamcat.txt
+    $ nkf -g s_iamcat.txt
+    Shift_JIS
+    $ nkf -w iamcat.txt > w_iamcat.txt
+    $ nkf -g w_iamcat.txt
+    UTF-8
+    $ nkf -Lu iamcat.txt > lu_iamcat.txt
+    $ nkf -g lu_iamcat.txt
+    UTF-8
+    $ nkf -Lm iamcat.txt > lm_iamcat.txt
+    $ nkf -g lm_iamcat.txt
+    UTF-8
+        \end{lstlisting}
+          \begin{table}[h]
+              \begin{center}
+                  \begin{tabular}{|c|c|} \hline
+                      オプション & 意味                                   \\ \hline
+                      -j         & JISコードを出力する                    \\ \hline
+                      -s         & シフトJISコードを出力する              \\ \hline
+                      -e         & EUCコードを出力する                    \\ \hline
+                      -w         & UTF-8コードを出力する                  \\ \hline
+                      -Lu        & 改行をLFにする（UNIX系）               \\ \hline
+                      -Lm        & 改行をCRにする（OS Xより前のmac OS系） \\ \hline
+                      -g         & 自動判別の結果を出力する               \\ \hline
+                  \end{tabular}
+              \end{center}
+          \end{table}
+          \clearpage
+    \item diff・・・2つのテキストファイルを比較し、異なる箇所を出力するコマンド
+          \begin{lstlisting}
+    $ cd jexpchi1
+    $ diff sample1.txt sample2.txt
+    1c1
+    < a Alice
+    ---
+    > a Alfred
+    4,5c4
+    < d Daniel
+    < e Emilia
+    ---
+    > d David
+    7a7
+    > k Kate
+    $ diff -u sample1.txt sample2.txt
+    --- sample1.txt	2020-07-13 16:25:14.000000000 +0900
+    +++ sample2.txt	2020-07-13 16:25:14.000000000 +0900
+    @@ -1,7 +1,7 @@
+    -a Alice
+    +a Alfred
+     b Bob
+     c Cathy
+    -d Daniel
+    -e Emilia
+    +d David
+     f Francis
+     g Guy
+    +k Kate
+            \end{lstlisting}
+
+          \begin{table}[h]
+              \begin{center}
+                  \begin{tabular}{|c|c|} \hline
+                      オプション & 意味                                                        \\ \hline
+                      -u         & 違いのある箇所を1つにまとめて、-記号と+記号で変更箇所を示す \\ \hline
+                  \end{tabular}
+              \end{center}
+          \end{table}
+    \item join・・・2つのテキストファイルを比較し、共通する項目がある行を連結するコマンド
+          \begin{lstlisting}
+    $ cd jexpchi1
+    $ join sample1.txt sample2.txt
+    a Alice Alfred
+    b Bob Bob
+    c Cathy Cathy
+    d Daniel David
+    f Francis Francis
+    g Guy Guy
+    $ join -1 2 -2 2 sample1.txt sample2.txt
+    Bob b b
+    Cathy c c
+    Francis f f
+    Guy g g
+    $ join -a 2 -1 2 -2 2 sample1.txt sample2.txt
+    a Alfred
+    Bob b b
+    Cathy c c
+    d David
+    Francis f f
+    Guy g g
+    k Kate
+           \end{lstlisting}
+          \clearpage
+          \begin{table}[h]
+              \begin{center}
+                  \begin{tabular}{|c|c|} \hline
+                      オプション & 意味                                               \\ \hline
+                      -1         & １つめに指定したファイルで一致に使う項目を指定する \\ \hline
+                      -2         & ２つめに指定したファイルで一致に使う項目を指定する \\ \hline
+                      -a         & 指定したファイルの行はすべて表示する               \\ \hline
+                  \end{tabular}
+              \end{center}
+          \end{table}
+    \item paste・・・各ファイルの行を結合するコマンド
+          \begin{lstlisting}
+    $ paste sample1.txt sample2.txt
+    a Alice	a Alfred
+    b Bob	b Bob
+    c Cathy	c Cathy
+    d Daniel	d David
+    e Emilia	f Francis
+    f Francis	g Guy
+    g Guy	k Kate
+    $ paste -d ' ' sample1.txt sample2.txt
+    a Alice a Alfred
+    b Bob b Bob
+    c Cathy c Cathy
+    d Daniel d David
+    e Emilia f Francis
+    f Francis g Guy
+    g Guy k Kate
+    $ paste -d ',' sample1.txt sample2.txt
+    a Alice,a Alfred
+    b Bob,b Bob
+    c Cathy,c Cathy
+    d Daniel,d David
+    e Emilia,f Francis
+    f Francis,g Guy
+    g Guy,k Kate
+               \end{lstlisting}
+          \begin{table}[!h]
+              \begin{center}
+                  \begin{tabular}{|c|c|} \hline
+                      オプション & 意味                 \\ \hline
+                      -d         & 区切り文字を指定する \\ \hline
+                  \end{tabular}
+              \end{center}
+          \end{table}
+          \clearpage
+    \item uniq・・・重複している行を取り除くコマンド
+          \begin{lstlisting}
+    $ cat < abcd.txt
+    aaa
+    bbb
+    bbb
+    bbb
+    ddd
+    ccc
+    ddd
+    $ uniq < abcd.txt
+    aaa
+    bbb
+    ddd
+    ccc
+    ddd
+    $ uniq -c < abcd.txt
+        1 aaa
+        3 bbb
+        1 ddd
+        1 ccc
+        1 ddd
+                   \end{lstlisting}
+          \begin{table}[h]
+              \begin{center}
+                  \begin{tabular}{|c|c|} \hline
+                      オプション & 意味                         \\ \hline
+                      -c         & 各行の前に出現回数を出力する \\ \hline
+                  \end{tabular}
+              \end{center}
+          \end{table}
+          \clearpage
+    \item sort・・・テキストファイルの内容を並べ替えるコマンド
+          \begin{table}[h]
+              \begin{center}
+                  \begin{tabular}{cc}
+                      \begin{minipage}{0.45\hsize}
+                          \begin{lstlisting}[frame={tblr}]
+    $ cd jexpchi1
+    $ cat sort_sample1.txt
+    5 c Cathy
+    6 e Emilia
+    5 a Alice
+    3 g Guy
+    7 f Francis
+    3 b Bob
+    6 d Daniel
+    $ sort sort_sample1.txt
+    3 b Bob
+    3 g Guy
+    5 a Alice
+    5 c Cathy
+    6 d Daniel
+    6 e Emilia
+    7 f Francis
+    $ sort -k 2 -r sort_sample1.txt
+    3 g Guy
+    7 f Francis
+    6 e Emilia
+    6 d Daniel
+    5 c Cathy
+    3 b Bob
+    5 a Alice
+    $ sort -r sort_sample1.txt
+    7 f Francis
+    6 e Emilia
+    6 d Daniel
+    5 c Cathy
+    5 a Alice
+    3 g Guy
+    3 b Bob
+                       \end{lstlisting}
+                      \end{minipage}
+                      \begin{minipage}{0.47\hsize}
+                          \begin{lstlisting}[frame={tbr}]
+    $ cat sort_sample2.txt
+    128
+    512
+    32
+    4
+    8
+    $ sort sort_sample2.txt
+    128
+    32
+    4
+    512
+    8
+    $ sort -n sort_sample2.txt
+    4
+    8
+    32
+    128
+    512
+            \end{lstlisting}
+                      \end{minipage}
+                  \end{tabular}
+              \end{center}
+          \end{table}
+          \begin{table}[!h]
+              \begin{center}
+                  \begin{tabular}{|c|c|} \hline
+                      オプション & 意味                     \\ \hline
+                      -k         & キーを指定して並べ替える \\ \hline
+                      -r         & 降順で並べ替える         \\ \hline
+                      -n         & 数値として並べ替える     \\ \hline
+                  \end{tabular}
+              \end{center}
+          \end{table}
+    \item expr・・・式を評価する
+          \begin{lstlisting}
+    $ expr 3 + 4
+    7
+    $ expr \( 7 \* 13 \) / 5
+    18
+    $ expr 7 \* 13
+    91
+    $ expr 7*13
+    zsh: no matches found: 7*13
+                           \end{lstlisting}
+          \clearpage
+    \item find・・・ディレクト階層をたどって条件を満たすファイルを検索する
+          \begin{lstlisting}
+    $ find jexpchi1 -type f
+    jexpchi1/sample11.txt
+    jexpchi1/alice.txt
+    jexpchi1/alice3.txt
+    jexpchi1/ex2.4.txt
+    jexpchi1/alice2.txt
+    jexpchi1/partial_words.txt
+    jexpchi1/abcd.txt
+    jexpchi1/sample6.txt
+    jexpchi1/sample4.txt
+    jexpchi1/iamcat.txt
+    jexpchi1/sample5.txt
+    jexpchi1/sample1.txt
+    jexpchi1/sort_sample1.txt
+    jexpchi1/output.txt
+    jexpchi1/sample2.txt
+    jexpchi1/sort_sample2.txt
+    jexpchi1/sample3.txt
+    $ find . -type f
+    ./jexpchi1/sample11.txt
+    ./jexpchi1/alice.txt
+    ./jexpchi1/alice3.txt
+    ./jexpchi1/ex2.4.txt
+    ./jexpchi1/alice2.txt
+    ./jexpchi1/partial_words.txt
+    ./jexpchi1/abcd.txt
+    ./jexpchi1/sample6.txt
+    ./jexpchi1/sample4.txt
+    ./jexpchi1/iamcat.txt
+    ./jexpchi1/sample5.txt
+    ./jexpchi1/sample1.txt
+    ./jexpchi1/sort_sample1.txt
+    ./jexpchi1/output.txt
+    ./jexpchi1/sample2.txt
+    ./jexpchi1/sort_sample2.txt
+    ./jexpchi1/sample3.txt
+    ./.DS_Store
+    ./sample_dir/dir2/dummy1.txt
+    ./sample_dir/dir2/dummy2.txt
+    ./sample_dir/dir4/dummy1.txt
+    ./sample_dir/dir4/dummy2.txt
+    ./sample_dir/dir3/sample1.txt
+    ./sample_dir/dir3/sample2.txt
+    ./sample_dir/dir1/dummy1.txt
+    ./sample_dir/dir1/dummy2.txt
+    $ find . -mtime 1
+
+    $ find jexpchi1 -name 'sample1.txt'
+    jexpchi1/sample1.txt
+                           \end{lstlisting}
+          \begin{table}[h]
+              \begin{center}
+                  \begin{tabular}{|c|c|}
+                      \hline
+                      オプション & 意味                                                   \\ \hline
+                      -mtime     & 任意の日数に更新されたファイルやディレクトリを検索する \\      \hline
+                      -type      & 対象とするものをディレクトリかファイルか指定できる     \\      \hline
+                      -name      & ファイルやディレクトリ名の一部のみ指定した検索ができる \\      \hline
+                  \end{tabular}
+              \end{center}
+          \end{table}
+          \clearpage
+    \item basename・・・ファイル名からディレクトリと接尾辞を取り除く
+          \begin{lstlisting}
+    $ basename jexpchi1/sample1.txt
+    sample1.txt
+    $ basename -s '.txt' jexpchi1/sample1.txt
+    sample1
+                               \end{lstlisting}
+          \begin{table}[h]
+              \begin{center}
+                  \begin{tabular}{|c|c|}
+                      \hline
+                      オプション & 意味                                         \\ \hline
+                      -s         & ファイル名の末尾から指定した文字列を削除する \\      \hline
+                  \end{tabular}
+              \end{center}
+          \end{table}
+
+    \item tr・・・文字の変換や削除を行うコマンド
+          \begin{lstlisting}
+    $ cd jexpchi1
+    $ tr 'l' 'L' < sample1.txt
+    a ALice
+    b Bob
+    c Cathy
+    d DanieL
+    e EmiLia
+    f Francis
+    g Guy
+    $ tr -d ' ' < sample1.txt
+    aAlice
+    bBob
+    cCathy
+    dDaniel
+    eEmilia
+    fFrancis
+    gGuy
+    $ tr -d '\n' < sample1.txt
+    a Aliceb Bobc Cathyd Daniele Emiliaf Francisg Guy%
+                           \end{lstlisting}
+          \begin{table}[h]
+              \begin{center}
+                  \begin{tabular}{|c|c|}
+                      \hline
+                      オプション & 意味                                       \\ \hline
+                      -d         & 最初の引数の文字を削除する(置換は行わない) \\      \hline
+                  \end{tabular}
+              \end{center}
+          \end{table}
+    \item wget・・・HTTPアクセスをしてコンテンツにファイルを保存するコマンド
+          \begin{lstlisting}
+    $ wget http://www.ms.kagu.tus.ac.jp
+    --2020-07-14 19:56:58--  http://www.ms.kagu.tus.ac.jp/
+    www.ms.kagu.tus.ac.jp (www.ms.kagu.tus.ac.jp) をDNSに問いあわせています
+    ... 133.31.57.12
+    www.ms.kagu.tus.ac.jp (www.ms.kagu.tus.ac.jp)|133.31.57.12|:80 に接続
+    しています... 接続しました。
+    HTTP による接続要求を送信しました、応答を待っています... 200 OK
+    長さ: 特定できません [text/html]
+    `index.html' に保存中
+    
+        [ <=>                                       
+                                                       
+        ] 33,514      --.-K/s 時間 0s
+    
+    2020-07-14 19:56:59 (228 MB/s) - `index.html' へ保存終了 [33514]
+    
+                           \end{lstlisting}
+          \clearpage
+    \item locale・・・現在のロケールを確認する
+          \begin{lstlisting}
+    $ locate
+    locate: 探すパターンが指定されていません
+    $ locate -a 
+    locate: 無効なオプション -- 'a'
+                           \end{lstlisting}
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,24 @@
+4619055 辰川力駆
+
+1.
+$ mkdir sample_dir
+
+2.
+$ for ((i=1;i<=4;i++)) ; do ; mkdir sample_dir/dir${i} ; done ;
+
+3.
+$ for ((i=1;i<=4;i++)) ; do ; touch sample_dir/dir${i}/sample1.txt sample_dir/dir${i}/sample2.txt ; done ;
+//while read dir でも可能
+
+4.
+$ for ((i=1;i<=4;i++)) ; do ; mv sample_dir/dir${i}/sample1.txt sample_dir/dir${i}/dummy1.txt ; mv sample_dir/dir${i}/sample2.txt sample_dir/dir${i}/dummy2.txt ; done ;
+
+5.
+$ ls sample_dir | while read dir
+> do
+> if [ "${dir}" = "dir3" ]
+> then
+> mv sample_dir/${dir}/dummy1.txt sample_dir/${dir}/sample1.txt
+> mv sample_dir/${dir}/dummy2.txt sample_dir/${dir}/sample2.txt
+> fi
+> done
