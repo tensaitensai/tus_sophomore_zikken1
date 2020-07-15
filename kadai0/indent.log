@@ -1,7 +1,7 @@
 INFO: latexindent version 3.8, 2020-03-21, a script to indent .tex files
       latexindent lives here: /usr/local/texlive/2020/texmf-dist/scripts/latexindent/
-      Tue Jul 14 04:18:02 2020
-      Filename: /Users/tea/tus_school/sophomore/zikken1/kadai1/__latexindent_temp.tex
+      Wed Jul 15 16:42:06 2020
+      Filename: /Users/tea/tus_school/sophomore/zikken1/kadai1/day1提出/__latexindent_temp.tex
 INFO: Processing switches:
       -y|--yaml: YAML settings specified via command line
       -c|--cruft: cruft directory
@@ -13,7 +13,7 @@ INFO: YAML settings read: indentconfig.yaml or .indentconfig.yaml
       To specify user settings you would put indentconfig.yaml here: /Users/tea/indentconfig.yaml
       Alternatively, you can use the hidden file .indentconfig.yaml as: /Users/tea/.indentconfig.yaml
 INFO: YAML settings read: -y switch
-      Updating masterSettings with defaultIndent:   
+      Updating masterSettings with defaultIndent:     
 INFO: Phase 1: searching for objects
 INFO: Phase 2: finding surrounding indentation
 INFO: Phase 3: indenting objects
