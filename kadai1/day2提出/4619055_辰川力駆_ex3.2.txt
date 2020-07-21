@@ -1,0 +1,27 @@
+4619055 辰川力駆
+
+1.
+$ LANG=ja_JP.UTF-8 date | sed 's/年/\//' | sed 's/月/\//' | sed 's/日/ /' | sed 's:\s::' | awk '{print $1$2}'
+2020/7/20
+
+2.
+$ CountryCode=JPN
+$ grep ${CountryCode} world.sql | grep countrylanguage | sed 's/ /!/g' | sed 's/[^a-zA-Z0-9.!]/ /g' | \
+awk '$6=="T"{print $5" ("$7"%, Official language)"}$6=="F"{print $5" ("$7"%)"}'
+Ainu (0.0%)
+Chinese (0.2%)
+English (0.1%)
+Japanese (99.1%, Official language)
+Korean (0.5%)
+Philippene!Languages (0.1%)
+$ CountryCode=CZE
+$ grep ${CountryCode} world.sql | grep countrylanguage | sed 's/ /!/g' | sed 's/[^a-zA-Z0-9.!]/ /g' | \
+awk '$6=="T"{print $5" ("$7"%, Official language)"}$6=="F"{print $5" ("$7"%)"}'
+Czech (81.2%, Official language)
+German (0.5%)
+Hungarian (0.2%)
+Moravian (12.9%)
+Polish (0.6%)
+Romani (0.3%)
+Silesiana (0.4%)
+Slovak (3.1%)
