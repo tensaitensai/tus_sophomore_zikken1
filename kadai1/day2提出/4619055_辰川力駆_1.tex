@@ -1,0 +1,229 @@
+%4619055 課題1 
+\documentclass[12pt]{jarticle}
+\usepackage{TUSIreport}
+\usepackage{otf}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hhline}
+\usepackage{fancybox,ascmac}
+\usepackage{url}
+\usepackage{listings,jlisting}
+\lstset{
+    frame={tblr},
+    basicstyle={\footnotesize},
+    tabsize={4},
+}
+%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 表紙を出力する場合は，\提出者と\共同実験者をいれる
+% \提出者{科目名}{課題名}{提出年}{提出月}{提出日}{学籍番号}{氏名}
+% \共同実験者{一人目}{二人目}{..}{..}{..}{..}{..}{八人目}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\提出者{情報工学実験1}{課題1 テキスト処理}
+{2020}{7}{20}{4619055}{辰川力駆}
+
+\共同実験者{}{}{}{}{}{}{}{}
+\追加実験者{}{}
+\表紙出力
+
+\section{実験内容}
+Unix系OSのコマンドラインインターフェース上でテキストデータを加工する方法を学ぶ。
+\subsection{レポート課題1}
+\begin{shadebox}
+    \LaTeX コード(sample.tex)をhtmlに変換するシェルスクリプトを作成せよ。
+    ファイル名は``tex2html\_4619055.sh"とする。以下に本課題の注意事項を示す。
+    \begin{itemize}
+        \item 「情報工学実験1」という文字列は、$<$h2$>$...$<$/h2$>$で囲むこと。
+        \item itemize環境は、htmlの$<$ul$>$環境に変換すること。
+        \item enumerate環境、htmlの$<$ol$>$環境に変換すること。
+        \item \LaTeX のコメント文は、htmlのコメント文に変換すること。削除してはならない。
+        \item 作成するhtmlの文字コードはutf-8とすること。
+    \end{itemize}
+\end{shadebox}
+
+\subsection{レポート課題2}
+\begin{shadebox}
+    課題1で作成したhtmlファイル中のコメント文$<$!$--$ End of ol $--$$>$の
+    位置に新たにグループを追加するシェルスクリプトを作成せよ。
+    ファイル名は``update\_html\_4619055.sh"とする。
+    シェルスクリプトの実行時の引数を用いて、
+    グループ名や学籍番号の範囲を指定せよ。
+    具体的には、第1引数にグループ名を、第2引数と第3引数に学籍番号の範囲を記述する。
+\end{shadebox}
+
+\subsection{レポート課題3}
+\begin{shadebox}
+    課題2でhtmlファイルを更新する前に、バックアップを取るように``update\_html\_4619055.sh"を変更しなさい。
+    変更後のシェルスクリプトのファイル名は、``update\_html\_ver2\_4619055.sh"とすること。
+    また、``sample.html"のバックアップファイル名は``sample.html.更新日時"とする。
+    ここで、``update\_html\_4619055.sh"が実行された時刻である。
+\end{shadebox}
+
+\subsection{レポート課題4}
+\begin{shadebox}
+    第1引数に``undo"という文字列を指定した場合に、更新時刻が最も新しいバックアップファイル
+    で``sample.html"で上書きされ、元の状態を復元できるように``update\_html\_ver2\_4619055.sh"
+    を変更しなさい。変更後のファイル名は、``update\_html\_ver3\_4619055.sh"とする。
+\end{shadebox}
+
+\clearpage
+
+\section{実験結果}
+\subsection{レポート課題1}
+課題1の結果を下記に示した。正常に動いている。
+\begin{lstlisting}
+    $ bash tex2html_4619055.sh
+    $ cat sample.html
+    <!DOCTYPE html>
+    <meta charset="utf-8">
+    
+    <body>
+    
+    <h2> 情報工学実験1</h2>
+    
+    TeX の基本操作と簡単なレポート作成の実習を行う．
+    
+    <ul style="list-style-type: circle">
+        <li> 日時: 平成xx年xx月xx日 xx:xx -- xx:xx</li>
+        <li> 場所: 東京理科大学葛飾キャンパス講義棟xxx教室</li>
+    </ul>
+    
+    なお，グループ編成は<u>以下の通りとする</u>．
+    
+    <ol type="a">
+        <li> G1 (学籍番号001 -- 020)</li>
+        <li> G2 (学籍番号021 -- 040)</li>
+        <li> G3 (学籍番号041 -- 060)</li>
+        <li> G4 (学籍番号061 -- 080)</li>
+     <!-- End of ol -->
+    </ol>
+    
+    </body>
+\end{lstlisting}
+\subsection{レポート課題2}
+課題2の結果を下記に示した。エラーハンドリングも含めて正常に動いている。
+\begin{lstlisting}
+    $ cat sample.html | tail -10
+
+    <ol type="a">
+        <li> G1 (学籍番号001 -- 020)</li>
+        <li> G2 (学籍番号021 -- 040)</li>
+        <li> G3 (学籍番号041 -- 060)</li>
+        <li> G4 (学籍番号061 -- 080)</li>
+     <!-- End of ol -->
+    </ol>
+
+    </body>
+    $ bash update_html_4619055.sh
+    エラー：グループ名を第1引数に，学籍番号の開始番号を第2引数に，
+    終了番号を第3引数に指定してください．
+    $ bash update_html_4619055.sh G5
+    エラー：引数が足りません．
+    $ bash update_html_4619055.sh G5 G5 G5 G5
+    エラー：引数が多すぎます．
+    $ bash update_html_4619055.sh G5 81 100
+    $ bash update_html_4619055.sh G6 101 120
+    $ cat sample.html | tail -12
+
+    <ol type="a">
+        <li> G1 (学籍番号001 -- 020)</li>
+        <li> G2 (学籍番号021 -- 040)</li>
+        <li> G3 (学籍番号041 -- 060)</li>
+        <li> G4 (学籍番号061 -- 080)</li>
+        <li> G5 (学籍番号081 -- 100)</li>
+        <li> G6 (学籍番号101 -- 120)</li>
+     <!-- End of ol -->
+    </ol>
+
+    </body>
+\end{lstlisting}
+\subsection{レポート課題3}
+課題3の結果を下記に示した。バックアップが取れている。
+\begin{lstlisting}
+    $ ls
+    sample.html  sample.tex  tex2html_4619055.sh  update_html_4619055.sh  
+    update_html_ver2_4619055.sh
+    $ bash update_html_ver2_4619055.sh G7 121 140
+    $ ls 
+    sample.html  sample.html.20200723060707  sample.tex  tex2html_4619055.sh  
+    update_html_4619055.sh  update_html_ver2_4619055.sh
+\end{lstlisting}
+\subsection{レポート課題4}
+課題4の結果を下記に示した。第1引数にundoを与えると最新のバックアップに戻っている。
+\begin{lstlisting}
+    $ cat sample.html | tail -10
+
+    <ol type="a">
+        <li> G1 (学籍番号001 -- 020)</li>
+        <li> G2 (学籍番号021 -- 040)</li>
+        <li> G3 (学籍番号041 -- 060)</li>
+        <li> G4 (学籍番号061 -- 080)</li>
+     <!-- End of ol -->
+    </ol>
+
+    </body>
+    $ bash update_html_ver3_4619055.sh G5 81 100
+    $ bash update_html_ver3_4619055.sh G6 101 120
+    $ bash update_html_ver3_4619055.sh G7 121 140
+    $ ls 
+    sample.html  sample.html.20200723061544  sample.html.20200723061551  
+    sample.html.20200723062320  sample.tex  tex2html_4619055.sh  
+    update_html_4619055.sh  update_html_ver2_4619055.sh  
+    update_html_ver3_4619055.sh
+    $ bash update_html_ver3_4619055.sh undo
+    Undo!
+    $ diff -u sample.html sample.html.20200723062320
+    $ diff -u sample.html sample.html.20200723061551
+    --- sample.html	2020-07-23 06:24:16.706558000 +0900
+    +++ sample.html.20200723061551	2020-07-23 06:15:51.742743000 +0900
+    @@ -20,8 +20,7 @@
+         <li> G3 (学籍番号041 -- 060)</li>
+         <li> G4 (学籍番号061 -- 080)</li>
+         <li> G5 (学籍番号081 -- 100)</li>
+    -    <li> G6 (学籍番号101 -- 120)</li>
+    - <!-- End of ol -->
+    + <!-- End of ol -->
+     </ol>
+    
+     </body>
+\end{lstlisting}
+
+\section{考察}
+\subsection{レポート課題1}
+tex2html\_4619055.shを作る上で用いたものは、主にsedコマンドである。
+一つ一つに対しsedコマンドで書き換えて実行しようと考えた。
+また、最後には無駄な行を省くためにいらない空白行を削除して、最後にsample.htmlに出力した。
+\subsection{レポート課題2}
+update\_html\_4619055.shを作る上で考えたのは、ifのエラー分岐である。
+\$\#で引数の個数がわかるので、それが3以外のとき、エラー出力するように考えた。
+
+また、出力するときは、sedを用いて、
+もともと$<$!$--$ End of ol $--$$>$があった場所を、指定された文字を出力して改行した上で
+        $<$!$--$ End of ol $--$$>$を出力することで実装している。
+
+\subsection{レポート課題3}
+update\_html\_ver2\_4619055.shは、update\_html\_4619055.shを改良したものであるが、
+追加したのは一行だけである。具体的には、実行される前の段階で
+\begin{lstlisting}
+    cp sample.html sample.html.`date +"%Y%m%d%H%M%S"`
+\end{lstlisting}
+を追加することで、実装している。
+dateコマンドで現在の日付や時刻を取得してそれをコピー先の名前に追加した。
+\subsection{レポート課題4}
+update\_html\_ver3\_4619055.shは、update\_html\_ver2\_4619055.shを改良したものである。
+第1引数にundoという文字が入っていたならば、戻す作業を行うようにif文を加えた。
+その後は、lsコマンドで``sample.html.日付"となっているものだけ取得し、
+sortコマンドの-rオプションで降順に並べ替え、
+最後にheadコマンドで一行だけ取得した。
+
+\section{結論}
+本実験を通して、シェルの基本機能及びUnix系OSの基本的なコマンドについて学ぶことができた。
+また、コマンドラインインターフェース上で
+sedとawkを用いたテキストデータの処理技法についても学ぶことができた。
+
+\clearpage
+\appendix
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
