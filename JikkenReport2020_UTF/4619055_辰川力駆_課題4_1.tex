@@ -2,7 +2,7 @@
 \documentclass[12pt]{jarticle}
 \usepackage{TUSIreport}
 \usepackage{otf}
-\usepackage{graphicx}
+\usepackage[dvipdfmx]{graphicx}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{hhline}
@@ -182,13 +182,23 @@
 \end{table}
 \begin{figure}[h]
     \begin{center}
-        \includegraphics[bb=0 0 1270 762,height=10cm]{kadai4_graph1.png}
+        \includegraphics[scale=0.8]{kadai4_graph1.png}
     \end{center}
     \caption{平均収支の変化}
     \label{fig1}
 \end{figure}
-
 \clearpage
+
+また、図1の赤い直線は期待収支を表している。
+求め方は、
+\begin{eqnarray}
+    E[Y] &=& \frac{36}{100}×(-1000) + \frac{28}{100}×1500 + \frac{36}{100}×0 \nonumber\\
+    &=& 60
+\end{eqnarray}
+で求められる。
+
+よって、1 回の収支の期待収支は 60 円と言うことが分かるので、$y(平均収支)=60$の直線を引いている。
+
 \subsection{レポート課題}
 \subsubsection*{レポート課題1-1}
 \begin{shadebox}
@@ -196,6 +206,15 @@
     5回の試行が終わったときの実験結果と比較せよ。
     さらに、100回の試行が終わったときの実験結果と比較せよ。
 \end{shadebox}
+式(1)より、1回の試行における収支の期待値は60円である。
+
+5回の試行が終わったときの収支は表1より200円で、
+1回の試行における収支の期待値との差は140円で差が大きかった。
+試行回数が少ないとばらつきが大きくなってし
+まうことがあると考えられる.
+100 回の試行が終わったときの収支は表 1 より 35 円で,1 回の試行における期待値との差は
+15 円となり,5 回の試行の結果よりはかなり差が狭まった.試行回数が増えるとばらつきが減っ
+ていくことが分かった.
 
 \subsubsection*{レポート課題1-2}
 \begin{shadebox}
@@ -247,65 +266,7 @@
     データを要約する指標を列挙し、それぞれの内容と特徴を述べよ。
 \end{shadebox}
 
-\subsection{}
-\begin{figure}[h]
-    \begin{center}
-        \includegraphics[bb=0 0 3308 2186,height=10cm]{parusu_5.jpg}
-    \end{center}
-    \caption{無安定マルチバイブレータ}
-    \label{fig5}
-    \begin{center}
-        \includegraphics[bb=0 0 2256 2366,height=10cm]{parusu_6.jpg}
-    \end{center}
-    \caption{無安定マルチバイブレータ　各部の波形図}
-    \label{fig6}
-\end{figure}
-
 \subsection{双安定マルチバイブレータ(フリップフロップ)}
-\subsubsection*{双安定マルチバイブレータの動作原理}
-図\ref{fig7}に双安定マルチバイブレータの基本形を示す。
-これは別名フリップフロップと呼ばれることもある。
-
-回路は対称であるため、
-スイッチを入れた瞬間は二つのトランジスタのうち片方がオン状態、もう片方がオフの状態となる。
-これは偶然の要素により決まる。
-さて、いま時刻$t_1$の瞬間にトランジスタ1がオンであり、
-トランジスタ2がオフであるとする。
-このとき、トランジスタ2のコレクタ電圧は
-\begin{eqnarray}
-    V_{CE2} \simeq V_{CC}\nonumber
-\end{eqnarray}
-となり、トランジスタ1のコレクタ電圧は
-\begin{eqnarray}
-    V_{CE1} \simeq 0\nonumber
-\end{eqnarray}
-となる。またトランジスタ2のコレクタ電流$I_{C2}$は
-\begin{eqnarray}
-    I_{C2} \simeq 0\nonumber
-\end{eqnarray}
-である。
-
-このとき、トランジスタ1のベースには順バイアス電圧がかかり、
-トランジスタ2のベースには逆バイアス電圧がかかっている。
-この状態で時刻$t_2$において、端子$T_1$に短形波を入力すると
-$C_1$、$R_1$で構成される微分回路による負トリガパルスの影響で、
-トランジスタ1のベース電位が負の電位に振られるためトランジスタ1はオフとなる。
-また、その瞬間$V_{CE1}$の電位が上昇し、
-それが抵抗$R_3$を通じてトランジスタ2のベース電位を上昇させるため、トランジスタ2はオンとなる。
-以後、端子$T_1$に短形波が入力されるたびにその立ち下がりのタイミングで、
-各トランジスタのオン・オフの状態が変化する。この様子を図\ref{fig8}に示す。
-
-\subsubsection*{実験事項}
-\begin{enumerate}
-    \item $T_1$に適当な振幅(例えば、$10(V)$程度)と発振周波数(例えば、$1kHz$程度)
-          を持つ無安定マルチバイブレータの出力を入力させ、
-          各トランジスタのコレクタ電位$V_{CE1}$、$V_{CE2}$と
-          ベース電位$V_{BE1}$、$V_{BE2}$波形を観測する。
-          ただし、入力端子$T_1$へ入力電圧は$10\sim12(V)$程度とし、
-          $R_{C1}=R_{C2}=2k\Omega$、$C_3=C_4=100pF$と
-    \item $R_{C1}$、$R_{C2}$、$C_3$、$C_4$の値を適当に変えて上記と同様の測定を行え。
-          ただし、$R_{C1}=R_{C2}$、$C_3=C_4$とすること。
-\end{enumerate}
 
 \clearpage
 \begin{figure}[h]
