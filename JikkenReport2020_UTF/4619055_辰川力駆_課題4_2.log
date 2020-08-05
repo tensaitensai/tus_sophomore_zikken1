@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.14159265-p3.8.3-191112-2.6 (utf8.euc) (TeX Live 2020) (preloaded format=platex 2020.6.3)  5 AUG 2020 03:17
+This is e-pTeX, Version 3.14159265-p3.8.3-191112-2.6 (utf8.euc) (TeX Live 2020) (preloaded format=platex 2020.6.3)  6 AUG 2020 03:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -385,25 +385,182 @@ LaTeX Font Info:    Font shape `JY1/hgt/m/n' will be
 (Font)              scaled to size 11.54663pt on input line 130.
 
 LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
-(Font)              using `JY1/hmc/bx/n' instead on input line 138.
+(Font)              using `JY1/hmc/bx/n' instead on input line 139.
+
+[4
+
+]
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 173.
 
 
 LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
-(Font)              using `JY1/hmc/bx/n' instead on input line 145.
+(Font)              using `JY1/hmc/bx/n' instead on input line 176.
 
 
 LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
-(Font)              using `JY1/hmc/bx/n' instead on input line 148.
+(Font)              using `JY1/hmc/bx/n' instead on input line 179.
 
 
 LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
-(Font)              using `JY1/hmc/bx/n' instead on input line 154.
-
-
-LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
-(Font)              using `JY1/hmc/bx/n' instead on input line 161.
+(Font)              using `JY1/hmc/bx/n' instead on input line 190.
 
 File: kadai4_2graph1.png Graphic file (type bmp)
 <kadai4_2graph1.png>
+File: kadai4_2graph2.png Graphic file (type bmp)
+<kadai4_2graph2.png>
 
-LaTeX Warning: `h' float specifier changed to `ht'
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+File: kadai4_2graph3.png Graphic file (type bmp)
+<kadai4_2graph3.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+File: kadai4_2graph4.png Graphic file (type bmp)
+<kadai4_2graph4.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+File: kadai4_2graph5.png Graphic file (type bmp)
+<kadai4_2graph5.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[5
+
+] [6] [7]
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 226.
+
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 227.
+
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 235.
+
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 246.
+
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 256.
+
+[8
+
+]
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 267.
+
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 270.
+
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 273.
+
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 281.
+
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 282.
+
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 286.
+
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 287.
+
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 291.
+
+File: kadai4_3graph1.png Graphic file (type bmp)
+<kadai4_3graph1.png>
+[9
+
+]
+File: kadai4_3graph2.png Graphic file (type bmp)
+<kadai4_3graph2.png>
+File: kadai4_3graph3.png Graphic file (type bmp)
+<kadai4_3graph3.png>
+File: kadai4_3graph4.png Graphic file (type bmp)
+<kadai4_3graph4.png>
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[10
+
+] [11]
+File: kadai4_3graph5.png Graphic file (type bmp)
+<kadai4_3graph5.png>
+
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 328.
+
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 329.
+
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 334.
+
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 339.
+
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 344.
+
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 348.
+
+[12
+
+]
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 355.
+
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 358.
+
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 362.
+
+[13
+
+] (./4619055_莨医�^^9d�^^8a^^9b薈^^86_茯臥�^^8c4_2.aux)
+
+LaTeX Font Warning: Size substitutions with differences
+(Font)              up to 7.12pt have occurred.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 4212 strings out of 481140
+ 53303 string characters out of 5917418
+ 313221 words of memory out of 5000000
+ 20204 multiletter control sequences out of 15000+600000
+ 548593 words of font info for 102 fonts, out of 8000000 for 9000
+ 929 hyphenation exceptions out of 8191
+ 30i,9n,31p,410b,992s stack positions out of 5000i,500n,10000p,200000b,80000s
+
+Output written on 4619055_辰川力駆_課題4_2.dvi (14 pages, 24544 bytes).

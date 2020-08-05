@@ -131,9 +131,10 @@
 \begin{shadebox}
     実験1の結果をまとめよ。
 \end{shadebox}
-表 2 の度数分布表より,最頻値は 1 であり,表 1 の実験結果より,平均値は 1.83 である.中
-央値は 2 である.ヒストグラムから見ると,1 の頻度が結構高いので,平均値が中央値より小
-さいと考えられる.
+表1の実験結果より、平均値は約2.433333333である。
+また、表2の度数分布より最頻値は3であり、中央値は2.5である。
+ヒストグラムを見ると明らかであるが、0と5の頻度が少ない。
+そして1から4はほぼ頻度が同じなので、平均値と中央値がほとんど同じと考えられる。
 
 \subsubsection*{レポート課題1-2}
 \begin{shadebox}
@@ -141,121 +142,185 @@
 \end{shadebox}
 実験1の結果は、二項分布に従っていない。
 
+二項分布の公式より
+\begin{equation}
+    P(X=k)= {}_n C_k p^k{(1-p)}^{n-k} \nonumber
+\end{equation}
+である。
+今回は、条件より$n=5$、$p=0.4$として$k=0,1,2,3,4,5$を計算すると、
+\begin{eqnarray}
+    P(X=0)= {}_5 C_0 0.4^0{(1-0.4)}^{5-0} \fallingdotseq  0.0778 \nonumber \\
+    P(X=1)= {}_5 C_1 0.4^1{(1-0.4)}^{5-1} \fallingdotseq  0.2592 \nonumber \\
+    P(X=2)= {}_5 C_2 0.4^2{(1-0.4)}^{5-2} \fallingdotseq 0.3456\nonumber \\
+    P(X=3)= {}_5 C_3 0.4^3{(1-0.4)}^{5-3} \fallingdotseq 0.2304 \nonumber \\
+    P(X=4)= {}_5 C_4 0.4^4{(1-0.4)}^{5-4} \fallingdotseq 0.0768 \nonumber \\
+    P(X=5)= {}_5 C_5 0.4^5{(1-0.4)}^{5-5} \fallingdotseq 0.0102\nonumber
+\end{eqnarray}
+となるが、実験から出される確率は、
+\begin{eqnarray}
+    P(X=0) &=& 1÷30 \fallingdotseq 0.3333 \nonumber \\
+    P(X=1)&=& 6÷30 = 0.2 \nonumber \\
+    P(X=2)&=& 8÷30 \fallingdotseq 0.2667\nonumber \\
+    P(X=3)&=& 9÷30 = 0.3 \nonumber \\
+    P(X=4)&=& 6÷30 = 0.2 \nonumber \\
+    P(X=5)&=& 0÷30 = 0 \nonumber
+\end{eqnarray}
+となる。これは、二項分布の公式から出した値と一致しない。
 
+したがって、実験1の結果は、二項分布に従っていない。
+
+\clearpage
 \section{実験2}
 中心極限定理を基にした実験
 
 \subsection{目標}
-\begin{itemize}
-    \item データを視覚的に表現する方法を理解する
-    \item データの正しい要約を行う
-\end{itemize}
+標本平均の分布について理解する。
 
 \subsection{実験手順}
 \begin{itemize}
-    \item[(1)] 年収データの平均値・中央値・最頻値を求める
-    \item[(2)] 年収を50万円刻みで区切ったヒストグラムを作成する
-    \item[(3)] 箱ひげ図を作成する
+    \item[(1)] Excelの[データ]から[データ分析]を選び、続いて[乱数発生]を選択する。
+    \item[(2)] 0から1までの1000個の乱数を発生させる。
+    \item[(3)] 発生させた乱数のヒストグラムを作成する。
+    \item[(4)] 区間幅を0.01としてヒストグラムを作成する。
+    \item[(5)] 0から1までの1000個の乱数を2つ発生させ、その平均値のヒストグラムを作成する。
+    \item[(6)] 0から1までの1000個の乱数を8つ発生させ、その平均値のヒストグラムを作成する。
+    \item[(7)] 0から1までの1000個の乱数を100つ発生させ、その平均値のヒストグラムを作成する。
 \end{itemize}
 
 \subsection{実験結果}
+以下に実験結果のグラフを示す。
+
 \begin{figure}[h]
     \begin{center}
-        \includegraphics[scale=0.7]{kadai4_2graph1.png}
+        \includegraphics[scale=0.8]{kadai4_2graph1.png}
     \end{center}
-    \caption{}
+    \caption{1000個の乱数を発生させた結果のヒストグラム(変数1つの区間幅指定なし)}
 \end{figure}
 \begin{figure}[h]
     \begin{center}
-        \includegraphics[scale=0.7]{kadai4_2graph2.png}
+        \includegraphics[scale=0.8]{kadai4_2graph2.png}
     \end{center}
-    \caption{}
+    \caption{1000個の乱数を発生させた結果のヒストグラム(変数1つ)}
 \end{figure}
 \begin{figure}[h]
     \begin{center}
-        \includegraphics[scale=0.7]{kadai4_2graph3.png}
+        \includegraphics[scale=0.8]{kadai4_2graph3.png}
     \end{center}
-    \caption{}
+    \caption{1000個の乱数を発生させた結果の平均値のヒストグラム(変数2つ)}
 \end{figure}
 \begin{figure}[h]
     \begin{center}
-        \includegraphics[scale=0.7]{kadai4_2graph4.png}
+        \includegraphics[scale=0.8]{kadai4_2graph4.png}
     \end{center}
-    \caption{}
+    \caption{1000個の乱数を発生させた結果の平均値のヒストグラム(変数8つ)}
 \end{figure}
 \begin{figure}[h]
     \begin{center}
-        \includegraphics[scale=0.7]{kadai4_2graph5.png}
+        \includegraphics[scale=0.8]{kadai4_2graph5.png}
     \end{center}
-    \caption{}
+    \caption{1000個の乱数を発生させた結果の平均値のヒストグラム(変数100つ)}
 \end{figure}
+
+\clearpage
 
 \subsection{レポート課題}
 \subsubsection*{レポート課題2-1}
 \begin{shadebox}
     実験2の結果をまとめよ。
 \end{shadebox}
+それぞれの図より、変数の数を増加させるとデータが中央に寄った。
+今回の場合は0から1までの乱数を1000個作ったので0.5に寄ったことになる。
+また、変数の数を更に大きくすると、さらに中央に寄ると考えられる。
 
 \subsubsection*{レポート課題2-2}
 \begin{shadebox}
     大数の法則とは何か、実験2の結果に基づいて説明せよ。
 \end{shadebox}
+大数の法則とは、確率pで起こる事象において、試行回数を増やすほど、
+その事象が実際に起こる確率はpに近づくという法則である。
+
+今回はExcel上で均一分布で乱数を発生させたので、
+無限個の母集団の平均値は範囲の中央の値になる。
+従って0.5に寄ることになるが、レポート課題2-1でも述べたように変数の数を大きくするにつれて0.5に寄っている。
 
 \subsubsection*{レポート課題2-3}
 \begin{shadebox}
     中心極限定理とは何か、実験2の結果に基づいて説明せよ。
 \end{shadebox}
+中心極限定理とは、標本を抽出する母集団が平均$\mu$、
+分散$ \sigma^2$の正規分布に従う従わないに関わらず、
+抽出するサンプルサイズ$n$が大きくなるにつれて標本平均の分布は「平均$\mu$、分散$\frac{\sigma^2}{n}$」の
+正規分布 $N$($\mu$,$\frac{\sigma^2}{n}$) に近づくという定理である。
+実際、今回の実験で変数の数を大きくするにつれてグラフの概形が正規分布に近づいている。
 
 \subsubsection*{レポート課題2-4}
 \begin{shadebox}
     区間 [0,1] の一様分布から12個選び、その合計から6を引いた値をYとする。
     Y はどのような分布に従うか述べよ。
 \end{shadebox}
+区間 [0,1] の一様分布から12個選ぶので、平均値は0.5である。
+また、分散は$\frac{\sigma^2}{n}$である。
+したがって、Y は正規分布に近づくと考えられる。
+
+\clearpage
 
 \section{実験3}
 正規分布を基にした実験
 
 \subsection{目標}
-\begin{itemize}
-    \item データを視覚的に表現する方法を理解する
-    \item データの正しい要約を行う
-\end{itemize}
+正規分布の概要について理解する。
 
 \subsection{実験手順}
 \begin{itemize}
-    \item[(1)] 年収データの平均値・中央値・最頻値を求める
-    \item[(2)] 年収を50万円刻みで区切ったヒストグラムを作成する
-    \item[(3)] 箱ひげ図を作成する
+    \item[(1)] Excelの[データ]から[データ分析]を選び、続いて[乱数発生]を選択する。
+    \item[(2)] 0から1までの1000個の乱数を平均を0、標準偏差を1として正規分布に従って発生させる。
+    \item[(3)] [データ区間]に指定する数値(区間幅0.5刻みの-10から10)を作る。
+    \item[(4)] ヒストグラムを作成する。
+    \item[(5)] 同様の手順で、平均を変更した場合に発生する乱数を用いてヒストグラムを作成する。
+          \begin{itemize}
+              \item 平均 -2、標準偏差 1
+              \item 平均 2、標準偏差 1
+          \end{itemize}
+    \item[(6)] 同様の手順で、標準偏差を変更した場合に発生する乱数を用いてヒストグラムを作成する。
+          \begin{itemize}
+              \item 平均 0、標準偏差 2
+              \item 平均 0、標準偏差 4
+          \end{itemize}
 \end{itemize}
 
 \subsection{実験結果}
+以下に実験結果のグラフを示す。
+
 \begin{figure}[h]
     \begin{center}
-        \includegraphics[scale=0.7]{kadai4_3graph1.png}
+        \includegraphics[scale=0.6]{kadai4_3graph1.png}
+    \end{center}
+    \caption{}
+\end{figure}
+
+\clearpage
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[scale=0.6]{kadai4_3graph2.png}
     \end{center}
     \caption{}
 \end{figure}
 \begin{figure}[h]
     \begin{center}
-        \includegraphics[scale=0.7]{kadai4_3graph2.png}
+        \includegraphics[scale=0.6]{kadai4_3graph3.png}
     \end{center}
     \caption{}
 \end{figure}
 \begin{figure}[h]
     \begin{center}
-        \includegraphics[scale=0.7]{kadai4_3graph3.png}
+        \includegraphics[scale=0.6]{kadai4_3graph4.png}
     \end{center}
     \caption{}
 \end{figure}
-\begin{figure}[h]
+\clearpage
+\begin{figure}[t]
     \begin{center}
-        \includegraphics[scale=0.7]{kadai4_3graph4.png}
-    \end{center}
-    \caption{}
-\end{figure}
-\begin{figure}[h]
-    \begin{center}
-        \includegraphics[scale=0.7]{kadai4_3graph5.png}
+        \includegraphics[scale=0.6]{kadai4_3graph5.png}
     \end{center}
     \caption{}
 \end{figure}
@@ -263,12 +328,12 @@
 \subsection{レポート課題}
 \subsubsection*{レポート課題3-1}
 \begin{shadebox}
-    実験3-5、3-6で作成したヒストグラムを比較して、考察せよ。
+    実験3-4、3-5で作成したヒストグラムを比較して、考察せよ。
 \end{shadebox}
 
 \subsubsection*{レポート課題3-2}
 \begin{shadebox}
-    実験3-5、3-7で作成したヒストグラムを比較して、考察せよ。
+    実験3-4、3-6で作成したヒストグラムを比較して、考察せよ。
 \end{shadebox}
 
 \subsubsection*{レポート課題3-3}
@@ -284,46 +349,32 @@
 \begin{shadebox}
     試験の点数や順位と比較して偏差値の短所・長所を述べよ。
 \end{shadebox}
-\clearpage
-\begin{figure}[h]
-    \begin{center}
-        \includegraphics[scale=0.8]{kadai4_1graph1.png}
-    \end{center}
-    \caption{東京都の人口の推移}
-    \label{fig6}
-\end{figure}
 
-表3は、文献\cite{paa}より東京都の1900年から2018年の人口を示した表である。
-これをもとにグラフを作成する。
-時間の推移に対して人口のデータがあるので、折れ線グラフが適切であると考えた。
-したがって、図6に東京都の人口の推移を折れ線グラフで示した。
-
-図6を見るとほとんど増加傾向であるが、1945年前後で急激に低下している。
-これは、日本が戦争を行っていたので、
-戦死等の理由から人口が減少したと考える。
-また、2000年以降に人口増加が大きいので、
-経済成長により、都市部に人口が集中していると考える。
 \clearpage
 
 \section{結論}
-実験で得られたデータがばらつくことを理解した。
-また、データを視覚化する方法を学び、
-データの要約指標のうち代表的なものを学んだ。
+
 
 \section{感想}
-グラフを読み取ったり考察するのは楽しかったが、
-エクセルのデータをtexの表に変換する作業がとても大変だった。
+
+
 % 参考文献
 \begin{thebibliography}{99}
     \label{sannkoubunnkenn_chapter}
     \bibitem[1]{rikadai}東京理科大学工学部情報工学科「情報工学実験1 2020年度」
     (2020/4/6)
 
-    \bibitem[2]{paa}東京都統計年鑑 平成30年 | 2　人口・世帯
+    \bibitem[2]{paa}大数の法則1 | 統計学の時間 | 統計WEB
 
-    \url{https://www.toukei.metro.tokyo.lg.jp/tnenkan/2018/tn18q3i002.htm}
+    \url{https://bellcurve.jp/statistics/course/8539.html}
 
-    最終閲覧日:2020/8/3
+    最終閲覧日:2020/8/5
+
+    \bibitem[3]{pa}中心極限定理1 | 統計学の時間 | 統計WEB
+
+    \url{https://bellcurve.jp/statistics/course/8543.html}
+
+    最終閲覧日:2020/8/5
 
 \end{thebibliography}
 
