@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.14159265-p3.8.3-191112-2.6 (utf8.euc) (TeX Live 2020) (preloaded format=platex 2020.6.3)  6 AUG 2020 03:24
+This is e-pTeX, Version 3.14159265-p3.8.3-191112-2.6 (utf8.euc) (TeX Live 2020) (preloaded format=platex 2020.6.3)  7 AUG 2020 18:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -495,58 +495,59 @@ File: kadai4_3graph2.png Graphic file (type bmp)
 <kadai4_3graph2.png>
 File: kadai4_3graph3.png Graphic file (type bmp)
 <kadai4_3graph3.png>
-File: kadai4_3graph4.png Graphic file (type bmp)
-<kadai4_3graph4.png>
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[10
-
-] [11]
-File: kadai4_3graph5.png Graphic file (type bmp)
-<kadai4_3graph5.png>
-
-
-LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
-(Font)              using `JY1/hmc/bx/n' instead on input line 328.
-
-
-LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
-(Font)              using `JY1/hmc/bx/n' instead on input line 329.
-
-
-LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
-(Font)              using `JY1/hmc/bx/n' instead on input line 334.
-
-
-LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
-(Font)              using `JY1/hmc/bx/n' instead on input line 339.
-
-
-LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
-(Font)              using `JY1/hmc/bx/n' instead on input line 344.
-
-
-LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
-(Font)              using `JY1/hmc/bx/n' instead on input line 348.
-
-[12
+ [10
 
 ]
+File: kadai4_3graph4.png Graphic file (type bmp)
+<kadai4_3graph4.png>
+File: kadai4_3graph5.png Graphic file (type bmp)
+<kadai4_3graph5.png>
+ [11
+
+]
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 330.
+
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 331.
+
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 343.
+
 
 LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
 (Font)              using `JY1/hmc/bx/n' instead on input line 355.
 
 
 LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
-(Font)              using `JY1/hmc/bx/n' instead on input line 358.
+(Font)              using `JY1/hmc/bx/n' instead on input line 365.
+
+[12
+
+]
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 381.
 
 
 LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
-(Font)              using `JY1/hmc/bx/n' instead on input line 362.
+(Font)              using `JY1/hmc/bx/n' instead on input line 392.
+
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 397.
 
 [13
+
+]
+
+LaTeX Font Warning: Font shape `JY1/hmc/b/n' undefined
+(Font)              using `JY1/hmc/bx/n' instead on input line 403.
+
+[14
 
 ] (./4619055_莨医�^^9d�^^8a^^9b薈^^86_茯臥�^^8c4_2.aux)
 
@@ -563,4 +564,4 @@ Here is how much of TeX's memory you used:
  929 hyphenation exceptions out of 8191
  30i,9n,31p,410b,992s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on 4619055_辰川力駆_課題4_2.dvi (14 pages, 24544 bytes).
+Output written on 4619055_辰川力駆_課題4_2.dvi (15 pages, 29164 bytes).

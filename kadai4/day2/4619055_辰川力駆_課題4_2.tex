@@ -236,8 +236,8 @@
 \begin{shadebox}
     大数の法則とは何か、実験2の結果に基づいて説明せよ。
 \end{shadebox}
-大数の法則とは、確率pで起こる事象において、試行回数を増やすほど、
-その事象が実際に起こる確率はpに近づくという法則である。
+大数の法則とは、確率$p$で起こる事象において、試行回数を増やすほど、
+その事象が実際に起こる確率は$p$に近づくという法則である。
 
 今回はExcel上で均一分布で乱数を発生させたので、
 無限個の母集団の平均値は範囲の中央の値になる。
@@ -258,8 +258,8 @@
     区間 [0,1] の一様分布から12個選び、その合計から6を引いた値をYとする。
     Y はどのような分布に従うか述べよ。
 \end{shadebox}
-区間 [0,1] の一様分布から12個選ぶので、平均値は0.5である。
-また、分散は$\frac{\sigma^2}{n}$である。
+区間 [0,1] の一様分布から12個選ぶので、
+分散と平均は元の一様分布に従う。
 したがって、Y は正規分布に近づくと考えられる。
 
 \clearpage
@@ -295,35 +295,37 @@
     \begin{center}
         \includegraphics[scale=0.6]{kadai4_3graph1.png}
     \end{center}
-    \caption{}
+    \caption{平均が0、標準偏差が1の乱数を発生させた結果のヒストグラム}
 \end{figure}
 
 \clearpage
 \begin{figure}[h]
     \begin{center}
-        \includegraphics[scale=0.6]{kadai4_3graph2.png}
+        \includegraphics[scale=0.7]{kadai4_3graph2.png}
     \end{center}
-    \caption{}
+    \caption{平均が-2、標準偏差が1の乱数を発生させた結果のヒストグラム}
 \end{figure}
 \begin{figure}[h]
     \begin{center}
-        \includegraphics[scale=0.6]{kadai4_3graph3.png}
+        \includegraphics[scale=0.7]{kadai4_3graph3.png}
     \end{center}
-    \caption{}
-\end{figure}
-\begin{figure}[h]
-    \begin{center}
-        \includegraphics[scale=0.6]{kadai4_3graph4.png}
-    \end{center}
-    \caption{}
+    \caption{平均が2、標準偏差が1の乱数を発生させた結果のヒストグラム}
 \end{figure}
 \clearpage
-\begin{figure}[t]
+
+\begin{figure}[h]
     \begin{center}
-        \includegraphics[scale=0.6]{kadai4_3graph5.png}
+        \includegraphics[scale=0.7]{kadai4_3graph4.png}
     \end{center}
-    \caption{}
+    \caption{平均が0、標準偏差が2の乱数を発生させた結果のヒストグラム}
 \end{figure}
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[scale=0.7]{kadai4_3graph5.png}
+    \end{center}
+    \caption{平均が0、標準偏差が4の乱数を発生させた結果のヒストグラム}
+\end{figure}
+\clearpage
 
 \subsection{レポート課題}
 \subsubsection*{レポート課題3-1}
@@ -331,33 +333,72 @@
     実験3-4、3-5で作成したヒストグラムを比較して、考察せよ。
 \end{shadebox}
 
+図7、8、9を比べてみると、
+グラフの概形は変わらないが山なりなグラフの場所が移動していることがわかる。
+また、その山なりな概形の中心は平均値に一致している。
+したがって、図8は図7のグラフに-2、図9は図7のグラフに+2したグラフの概形と考えられる。
+よって、乱数を生成する時に標準偏差を一定にしたままで平均値を変更すると、
+その平均値の値だけヒストグラムは移動することが分かる。
+
 \subsubsection*{レポート課題3-2}
 \begin{shadebox}
     実験3-4、3-6で作成したヒストグラムを比較して、考察せよ。
 \end{shadebox}
+
+図7、10、11を比べてみると、
+山なりな概形の中心は変わっていないが、
+標準偏差を大きくすることによりデータのばらつきが大きくなっている。
+また、縦軸のラベルを見ると分かるが、標準偏差を大きくすると同じ数字があまり存在しなくなっている。
+よって、乱数を生成する時に平均値を一定にしたままで標準偏差を増やすと、
+データのばらつきが大きくなることが分かる。
 
 \subsubsection*{レポート課題3-3}
 \begin{shadebox}
     課題3-1、3-2から、
     正規分布における期待値と標準偏差は確率分布の何を決定しているといえるか述べよ。
 \end{shadebox}
+
+正規分布において、
+期待値は確率分布における平均値を決定している。
+また、正規分布における標準偏差は確率分布のデータのばらつきを決定している。
+
 \subsubsection*{レポート課題3-4}
 \begin{shadebox}
     偏差値の確率密度関数を書け。
 \end{shadebox}
+
+正規分布である確率密度関数$f(x)$は、平均を$\mu$、標準偏差を$\sigma$とすると次のようになる。
+\begin{eqnarray}
+    f(x)=\frac{1}{\sqrt{2\pi}\sigma}exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)
+\end{eqnarray}
+ここで、偏差値は平均を$\mu=50$、標準偏差を$\sigma=10$としたものであるから、式(1)に代入して
+\begin{eqnarray*}
+    f(x)=\frac{1}{10\sqrt{2\pi}}exp\left(-\frac{(x-50)^2}{200}\right)
+\end{eqnarray*}
+となる。
+
+\clearpage
 \subsubsection*{レポート課題3-5}
 \begin{shadebox}
     試験の点数や順位と比較して偏差値の短所・長所を述べよ。
 \end{shadebox}
+偏差値は、平均値と標準偏差が決められているので、
+平均値や標準偏差が異なる試験においても比較ができるようになっている。
 
-\clearpage
+しかし、偏差値は母集団のどのくらいの位置にいるのかが分かるものなので、
+母集団が変化した時に偏差値だけでは試験の実力差が分からない。
+したがって、母集団が違うもの同士で比較はできない。
 
 \section{結論}
-
+実験を通して、代表的な離散分布である二項分布、標本平均の分布、代表的な連続分布である正規分布を理解した。
+また、考察で実験値は二項分布に従っているかどうかや、
+標本平均の分布が中心極限定理に従っているかどうかを考えた。
 
 \section{感想}
+今回の実験で様々なヒストグラムを比べたので、ヒストグラムについての細かい違いを理解することができた。
+また、確率密度関数の使い方について知ることができた。
 
-
+\clearpage
 % 参考文献
 \begin{thebibliography}{99}
     \label{sannkoubunnkenn_chapter}
